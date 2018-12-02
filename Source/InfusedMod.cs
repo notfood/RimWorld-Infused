@@ -65,7 +65,7 @@ namespace Infused
         {
             // Can we be infused?
             var compInfused = __instance.parent.TryGetComp<CompInfused>();
-            if (compInfused != null)
+            if (compInfused != null && !compInfused.IsActive)
             {
                 var thing = __instance.parent;
 
