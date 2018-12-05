@@ -83,7 +83,8 @@ namespace Infused
 
             ResourceBank.Sounds.Infused.PlayOneShotOnCamera();
 
-            MoteMaker.ThrowText(parent.Position.ToVector3Shifted(), this.parent.Map, ResourceBank.Strings.Mote, ResourceBank.Colors.Legendary);
+            if (parent.Map != null)
+                MoteMaker.ThrowText(parent.Position.ToVector3Shifted(), parent.Map, ResourceBank.Strings.Mote, ResourceBank.Colors.Legendary);
 
             isNew = false;
         }
