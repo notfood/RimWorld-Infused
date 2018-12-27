@@ -27,5 +27,7 @@
   <Infused.Settings.MultiplierDesc>more means more infusions. (default = 1.00)</Infused.Settings.MultiplierDesc>
   <Infused.Settings.Bias>Infusion Type Bias</Infused.Settings.Bias>
   <Infused.Settings.BiasDesc>more means better results. (default = 0.50) </Infused.Settings.BiasDesc>
+  <Infused.Settings.NonHumans>Infusions for non-Humanlike</Infused.Settings.NonHumans>
+  <Infused.Settings.NonHumansDesc>enables infusion modifiers for non-humanlike pawns, like animals</Infused.Settings.NonHumansDesc>
   
 </LanguageData>

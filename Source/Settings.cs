@@ -8,6 +8,7 @@ namespace Infused
     {
         public static float mult = 1f;
         public static float bias = 0.5f;
+        public static bool nonhumans = false;
 
         public static void DoSettingsWindowContents(Rect rect)
         {
@@ -18,6 +19,7 @@ namespace Infused
             mult = list.Slider(mult, 0.05f, 4f);
             list.Label(ResourceBank.Strings.SettingsBias + ":" + bias.ToString("0.00"), -1, ResourceBank.Strings.SettingsBiasDesc);
             bias = list.Slider(bias, 0.01f, 6f);
+            list.CheckboxLabeled(ResourceBank.Strings.SettingsNonHumans, ref nonhumans, ResourceBank.Strings.SettingsNonHumansDesc);
             list.End();
         }
 

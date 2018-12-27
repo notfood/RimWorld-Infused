@@ -19,8 +19,11 @@ namespace Infused
                 return;
             }
             if (req.Thing.def.race != null && req.Thing.def.race.Humanlike) {
-                TransformValueForPawn (req, ref val);
-            } else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
+                TransformValueForPawn(req, ref val);
+            } else if (req.Thing.def.race != null && Settings.nonhumans) {
+                TransformValueForPawn(req, ref val);
+            }
+            else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
                 TransformValueForThing (req, ref val);
             }
         }

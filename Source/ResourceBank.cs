@@ -29,6 +29,8 @@ namespace Infused
             public static readonly string SettingsMultiplierDesc = TL("Settings.MultiplierDesc");
             public static readonly string SettingsBias = TL("Settings.Bias");
             public static readonly string SettingsBiasDesc = TL("Settings.BiasDesc");
+            public static readonly string SettingsNonHumans = TL("Settings.NonHumans");
+            public static readonly string SettingsNonHumansDesc = TL("Settings.NonHumansDesc");
 
             //Your weapon, {0}, is infused!
             public static string Notice(string weapon) => TL("Notice", weapon);
