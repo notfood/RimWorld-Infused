@@ -22,8 +22,7 @@ namespace Infused
                 TransformValueForPawn (req, ref val);
             } else if (req.Thing.def.race != null && Settings.nonhumans) {
                 TransformValueForPawn (req, ref val);
-            }
-            else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
+            } else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
                 TransformValueForThing (req, ref val);
             }
         }
