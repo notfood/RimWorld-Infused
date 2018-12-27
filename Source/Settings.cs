@@ -27,6 +27,7 @@ namespace Infused
         {
             Scribe_Values.Look(ref mult, "ChanceMult");
             Scribe_Values.Look(ref bias, "ChanceBias");
+            Scribe_Values.Look(ref nonhumans, "AllowNonHumans");
         }
     }
 }

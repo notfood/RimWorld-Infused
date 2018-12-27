@@ -19,9 +19,9 @@ namespace Infused
                 return;
             }
             if (req.Thing.def.race != null && req.Thing.def.race.Humanlike) {
-                TransformValueForPawn(req, ref val);
+                TransformValueForPawn (req, ref val);
             } else if (req.Thing.def.race != null && Settings.nonhumans) {
-                TransformValueForPawn(req, ref val);
+                TransformValueForPawn (req, ref val);
             }
             else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
                 TransformValueForThing (req, ref val);
@@ -38,7 +38,7 @@ namespace Infused
             }
 
             //Pawn has a primary weapon
-            if ( pawn.equipment.Primary != null )
+            if ((pawn.equipment != null) && (pawn.equipment.Primary != null))
             {
                 if (CompInfused.TryGetInfusedComp(pawn.equipment.Primary, out CompInfused inf))
                 {
@@ -47,11 +47,13 @@ namespace Infused
             }
 
             //Pawn has apparels
-            foreach ( var apparel in pawn.apparel.WornApparel )
-            {
-                if (CompInfused.TryGetInfusedComp(apparel, out CompInfused inf))
+            if (pawn.apparel != null) {
+                foreach ( var apparel in pawn.apparel.WornApparel )
                 {
-                    TransformValue(inf, parentStat, ref val);
+                    if (CompInfused.TryGetInfusedComp(apparel, out CompInfused inf))
+                    {
+                        TransformValue(inf, parentStat, ref val);
+                    }
                 }
             }
         }
@@ -85,6 +87,8 @@ namespace Infused
 
             if (req.Thing.def.race != null && req.Thing.def.race.Humanlike) {
                 return ExplanationPartForPawn(req);
+            } else if ((req.Thing.def.race != null) && Settings.nonhumans) {
+                return ExplanationPartForPawn(req);
             }
 
             return ExplanationPartForThing(req);
@@ -101,16 +105,18 @@ namespace Infused
             var result = new StringBuilder();
 
             //Pawn has a primary weapon
-            if (pawn.equipment.Primary != null) {
+            if ((pawn.equipment != null) && (pawn.equipment.Primary != null)) {
                 if (CompInfused.TryGetInfusedComp(pawn.equipment.Primary, out CompInfused comp)) {
                     result.Append(WriteExplanation(pawn.equipment.Primary, comp));
                 }
             }
 
             //Pawn has apparels
-            foreach ( var apparel in pawn.apparel.WornApparel ) {
-                if ( CompInfused.TryGetInfusedComp(apparel, out CompInfused comp) ) {
-                    result.Append( WriteExplanation( apparel, comp ) );
+            if (pawn.apparel != null) {
+                foreach ( var apparel in pawn.apparel.WornApparel ) {
+                    if ( CompInfused.TryGetInfusedComp(apparel, out CompInfused comp) ) {
+                        result.Append( WriteExplanation( apparel, comp ) );
+                    }
                 }
             }
 
