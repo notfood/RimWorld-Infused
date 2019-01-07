@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 using RimWorld;
 using Verse;
@@ -9,7 +11,26 @@ namespace Infused
 
     public class StatPart_InfusedModifier : StatPart
     {
-        public StatPart_InfusedModifier(StatDef parentStat) {
+        static readonly IEnumerable<StatCategoryDef> blacklistedCategories = new List<StatCategoryDef>()
+        {
+            StatCategoryDefOf.BasicsNonPawn,
+            StatCategoryDefOf.Building,
+            StatCategoryDefOf.StuffStatFactors,
+        };
+
+        static readonly IEnumerable<StatDef> blacklistedStats = new List<StatDef> {
+            StatDefOf.MarketValue,
+            StatDefOf.StuffEffectMultiplierInsulation_Cold,
+            StatDefOf.StuffEffectMultiplierInsulation_Heat,
+            StatDefOf.StuffEffectMultiplierArmor,
+        };
+
+        static bool IsNotBlacklistedForPawn(StatDef stat) {
+            return !(blacklistedStats.Contains(stat) || blacklistedCategories.Contains(stat.category));
+        }
+
+        public StatPart_InfusedModifier(StatDef parentStat) 
+        {
             this.parentStat = parentStat;
         }
 
@@ -18,7 +39,7 @@ namespace Infused
             if (!req.HasThing) {
                 return;
             }
-            if (req.Thing.def.race != null && req.Thing.def.race.Humanlike) {
+            if (req.Thing.def.race != null && IsNotBlacklistedForPawn(parentStat)) {
                 TransformValueForPawn (req, ref val);
             } else if (req.Thing.def.HasComp( typeof(CompInfused) )) {
                 TransformValueForThing (req, ref val);
@@ -29,42 +50,40 @@ namespace Infused
         {
             var pawn = req.Thing as Pawn;
             //Just in case
-            if ( pawn == null )
-            {
+            if ( pawn == null ) {
                 return;
             }
 
-            //Pawn has a primary weapon
-            if ( pawn.equipment.Primary != null )
-            {
+            if ( pawn.equipment?.Primary != null ) {
+                //Pawn has a primary weapon
                 if (CompInfused.TryGetInfusedComp(pawn.equipment.Primary, out CompInfused inf))
                 {
                     TransformValue(inf, parentStat, ref val);
                 }
             }
 
-            //Pawn has apparels
-            foreach ( var apparel in pawn.apparel.WornApparel )
-            {
-                if (CompInfused.TryGetInfusedComp(apparel, out CompInfused inf))
+            if (pawn.apparel != null) {
+                //Pawn has apparels
+                foreach (var apparel in pawn.apparel.WornApparel)
                 {
-                    TransformValue(inf, parentStat, ref val);
+                    if (CompInfused.TryGetInfusedComp(apparel, out CompInfused inf))
+                    {
+                        TransformValue(inf, parentStat, ref val);
+                    }
                 }
             }
         }
 
         void TransformValueForThing( StatRequest req, ref float val )
         {
-            if (CompInfused.TryGetInfusedComp(req.Thing, out CompInfused inf))
-            {
+            if (CompInfused.TryGetInfusedComp(req.Thing, out CompInfused inf)) {
                 TransformValue(inf, parentStat, ref val);
             }
         }
 
         void TransformValue(CompInfused comp, StatDef stat, ref float val)
         {
-            foreach (var infusion in comp.Infusions)
-            {
+            foreach (var infusion in comp.Infusions) {
                 var statMod = infusion.stats.TryGetValue(stat);
                 if (statMod == null) {
                     continue;
@@ -75,12 +94,13 @@ namespace Infused
             }
         }
 
-        public override string ExplanationPart( StatRequest req ) {
+        public override string ExplanationPart( StatRequest req )
+        {
             if ( !req.HasThing ) {
                 return null;
             }
 
-            if (req.Thing.def.race != null && req.Thing.def.race.Humanlike) {
+            if (req.Thing.def.race != null && IsNotBlacklistedForPawn(parentStat)) {
                 return ExplanationPartForPawn(req);
             }
 
@@ -97,17 +117,19 @@ namespace Infused
 
             var result = new StringBuilder();
 
-            //Pawn has a primary weapon
-            if (pawn.equipment.Primary != null) {
+            if (pawn.equipment?.Primary != null) {
+                //Pawn has a primary weapon
                 if (CompInfused.TryGetInfusedComp(pawn.equipment.Primary, out CompInfused comp)) {
                     result.Append(WriteExplanation(pawn.equipment.Primary, comp));
                 }
             }
 
-            //Pawn has apparels
-            foreach ( var apparel in pawn.apparel.WornApparel ) {
-                if ( CompInfused.TryGetInfusedComp(apparel, out CompInfused comp) ) {
-                    result.Append( WriteExplanation( apparel, comp ) );
+            if (pawn.apparel != null) {
+                //Pawn has apparels
+                foreach (var apparel in pawn.apparel.WornApparel) {
+                    if (CompInfused.TryGetInfusedComp(apparel, out CompInfused comp)) {
+                        result.Append(WriteExplanation(apparel, comp));
+                    }
                 }
             }
 
@@ -121,8 +143,7 @@ namespace Infused
 
         string ExplanationPartForThing( StatRequest req )
         {
-            if (CompInfused.TryGetInfusedComp(req.Thing, out CompInfused comp))
-            {
+            if (CompInfused.TryGetInfusedComp(req.Thing, out CompInfused comp)) {
                 return WriteExplanation(req.Thing, comp);
             }
 
