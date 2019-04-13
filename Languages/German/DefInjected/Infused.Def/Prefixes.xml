@@ -64,7 +64,7 @@
   <Attractive.label>Attraktivitäts</Attractive.label>
   <Attractive.labelShort>attr</Attractive.labelShort>
   <!-- Unnachgiebigkeits, Hart, Fest -->
-  <Hard.label>Härte</Hard.label>
+  <Hard.label>Hart</Hard.label>
   <Hard.labelShort>hart</Hard.labelShort>
   <!-- Weich -->
   <Soft.label>Samt</Soft.label>
