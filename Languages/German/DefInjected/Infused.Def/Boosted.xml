@@ -515,8 +515,8 @@
   
   <rxen3.label>XenoTech Elite</rxen3.label>
   <rxen3.labelShort>alien2</rxen3.labelShort>
-  <!-- Grundverändert -->
-  <mod5.label>Individuum</mod5.label>
+  <!-- Grundverändert, Individuum -->
+  <mod5.label>Fingerabdruck</mod5.label>
   <mod5.labelShort>modi5</mod5.labelShort>
 
   <!-- ############# StoryTeller  ############# -->
