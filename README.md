@@ -29,3 +29,4 @@ Code is derivate from Ludeon Studio
 - Latta, original mod
 - Skyarkangel, magic infusions
 - Raydarken, tech infusions
+- Trunken, german translation
