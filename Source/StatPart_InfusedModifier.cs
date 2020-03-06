@@ -84,7 +84,7 @@ namespace Infused
         void TransformValue(CompInfused comp, StatDef stat, ref float val)
         {
             foreach (var infusion in comp.Infusions) {
-                var statMod = infusion.stats.TryGetValue(stat);
+                var statMod = infusion.stats?.TryGetValue(stat);
                 if (statMod == null) {
                     continue;
                 }

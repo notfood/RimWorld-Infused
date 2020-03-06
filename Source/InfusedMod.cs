@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Harmony;
+using HarmonyLib;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -13,7 +13,7 @@ namespace Infused
     {
         public InfusedMod(ModContentPack content) : base(content)
         {
-            HarmonyInstance.Create("rimworld.infused").PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+            new Harmony("rimworld.infused").PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
 
             LongEventHandler.ExecuteWhenFinished(Inject);
 
@@ -33,7 +33,7 @@ namespace Infused
 
             var tabType = typeof(ITab_Infused);
             var tab = InspectTabManager.GetSharedInstance(tabType);
-            var compProperties = new CompProperties { compClass = typeof(CompInfused) };
+            var compProperties = new Verse.CompProperties { compClass = typeof(CompInfused) };
 
             foreach (var def in defs)
             {
@@ -55,69 +55,59 @@ namespace Infused
             Log.Message("Infused :: Injected " + defs.Count + "/" + DefDatabase<ThingDef>.AllDefs.Count());
             #endif
         }
-    }
 
-    [HarmonyPatch(typeof(CompQuality))]
-    [HarmonyPatch(nameof(CompQuality.SetQuality))]
-    static class CompQuality_SetQuality_Patch
-    {
-        static void Postfix(CompQuality __instance, QualityCategory q, ArtGenerationContext source)
+        public static IEnumerable<Def> Infuse(Thing thing, QualityCategory q, int min = 0, bool skinThingFilter = false)
         {
-            // Can we be infused?
-            var compInfused = __instance.parent.TryGetComp<CompInfused>();
-            if (compInfused != null && !compInfused.IsActive)
+            IEnumerable<PoolDef> query = DefDatabase<PoolDef>.AllDefs;
+            if (!skinThingFilter)
             {
-                var thing = __instance.parent;
-
+                query = query.Where(p => p.Allows(thing));
+            }
+            if (min <= 0) {
                 // Get those Infused lucky rolls
-                var pools = (
-                    from pool in DefDatabase<PoolDef>.AllDefs
-                    where pool.Allows(thing) && Rand.Value < pool.Chance(q) * Settings.mult
-                    select pool
-                ).ToList();
+                query = query.Where(p => Rand.Value < p.Chance(q) * Settings.mult);
+            } else {
+                query = query.OrderBy(p => Guid.NewGuid()).Take(min);
+            }
 
-                if (pools.Count == 0) {
-                    return;
+            var pools = query.ToList();
+
+            if (pools.Count == 0) {
+                yield break;
+            }
+
+            #if DEBUG
+            Log.Message("Infused :: " + q + " " + thing.def.label + " got " + pools.Count + " lucky rolls");
+            #endif
+
+            var tier = RollTier(q);
+
+            foreach (var pool in pools)
+            {
+                var infusions = AvailableInfusions(pool, tier, thing, skinThingFilter);
+                if (infusions.Count == 0) {
+                    #if DEBUG
+                    Log.Warning(" > Couldn't find any infusion to give to " + q + " " + thing.def.label);
+                    #endif
+                    continue;
                 }
+                var infusion = infusions.RandomElementByWeight(i => i.weight);
 
                 #if DEBUG
-                Log.Message("Infused :: " + q + " " + thing.def.label + " got " + pools.Count + " lucky rolls");
+                Log.Message(" > Added " + infusion + " to " + q + " " + thing.def.label + " from " + pool.defName + "-" + infusion.tier);
                 #endif
 
-                var tier = RollTier(q);
-
-                foreach (var pool in pools)
-                {
-                    var infusions = AvailableInfusions(pool, tier, thing);
-                    if (infusions.Count == 0) {
-                        #if DEBUG
-                        Log.Warning(" > Couldn't find any infusion to give to " + q + " " + thing.def.label);
-                        #endif
-                        return;
-                    }
-                    var infusion = infusions.RandomElementByWeight(i => i.weight);
-
-                    #if DEBUG
-                    Log.Message(" > Added " + infusion + " to " + q + " " + thing.def.label + " from " + pool.defName + "-" + infusion.tier);
-                    #endif
-
-                    compInfused.Attach(infusion);
-                }
-
-                if (compInfused.IsActive)
-                {
-                    __instance.parent.HitPoints = __instance.parent.MaxHitPoints;
-                }
+                yield return infusion;
             }
         }
 
-        static List<Def> AvailableInfusions(PoolDef pool, InfusionTier tier, Thing thing) {
+        static List<Def> AvailableInfusions(PoolDef pool, InfusionTier tier, Thing thing, bool skinThingFilter = false) {
             List<Def> infusions = new List<Def>(0);
             while (tier >= 0 && infusions.Count == 0)
             {
                 infusions = (
                     from def in DefDatabase<Def>.AllDefs
-                    where def.pool == pool && def.tier == tier && def.Allows(thing)
+                    where def.pool == pool && def.tier == tier && (skinThingFilter || def.Allows(thing))
                     select def
                 ).ToList();
 
@@ -162,13 +152,35 @@ namespace Infused
         }
     }
 
-    [HarmonyPatch(typeof(GenMapUI))]
-    [HarmonyPatch(nameof(GenMapUI.DrawThingLabel))]
-    [HarmonyPatch(new Type[] { typeof(Thing), typeof(string), typeof(Color) })]
-    static class GenMapUI_DrawThingLabel_Patch
+    [HarmonyPatch(typeof(CompQuality), nameof(CompQuality.SetQuality))]
+    static class CompQuality_SetQuality_Patch
     {
-        static void Postfix(Thing thing) {
-            if (!CompInfused.TryGetInfusedComp(thing, out CompInfused comp)) {
+        static void Postfix(CompQuality __instance, QualityCategory q, ArtGenerationContext source)
+        {
+            // Can we be infused?
+            var compInfused = __instance.parent.TryGetComp<CompInfused>();
+            if (!(compInfused?.IsActive ?? true))
+            {
+                var thing = __instance.parent;
+
+                foreach(var infusion in InfusedMod.Infuse(thing, q))
+                {
+                    compInfused.Attach(infusion);
+                }
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(Thing), nameof(Thing.DrawGUIOverlay))]
+    static class Thing_DrawGUIOverlay_Patch
+    {
+        static void Postfix(Thing __instance) {
+            if (Find.CameraDriver.CurrentZoom != CameraZoomRange.Closest)
+            {
+                return;
+            }
+
+            if (!CompInfused.TryGetInfusedComp(__instance, out CompInfused comp)) {
                 return;
             }
 
@@ -178,7 +190,7 @@ namespace Infused
 
             string text = comp.InfusedLabelShort;
             float x = Text.CalcSize(text).x;
-            var screenPos = GenMapUI.LabelDrawPosFor(thing, -0.66f);
+            var screenPos = GenMapUI.LabelDrawPosFor(__instance, -0.66f);
             var rect = new Rect(screenPos.x - x / 2f, screenPos.y - 3f, x, 999f);
             Widgets.Label(rect, text);
 

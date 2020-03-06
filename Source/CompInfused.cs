@@ -34,31 +34,57 @@ namespace Infused
             infusions.Add(def);
         }
 
+        public override void Initialize(CompProperties props)
+        {
+            base.Initialize(props);
+
+            if (props is CompProperties_Enchant infusedProps)
+            {
+                #if DEBUG
+                Log.Message($"Infused :: {parent} will be infused");
+                #endif
+                // This is ONLY called when Infused is set in XML
+                infusions = InfusedMod.Infuse(parent, infusedProps.quality, 1, true).ToList();
+            }
+        }
+
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
 
             if (IsActive)
             {
-                var maxtier = InfusionTier.Common;
-                var infusedLabelBuilder = new StringBuilder();
-                foreach(var infusion in infusions) {
-                    if (infusion.tier > maxtier) {
-                        maxtier = infusion.tier;
-                    }
-                    if (infusedLabelBuilder.Length > 0)
-                    {
-                        infusedLabelBuilder.Append(" ");
-                    }
-                    infusedLabelBuilder.Append(infusion.labelShort);
-                }
-                infusedLabelShort = infusedLabelBuilder.ToString();
-                infusedLabelColor = ResourceBank.Colors.InfusionColor(maxtier);
+                Setup();
 
-                // We only throw notifications for newly spawned items.
-                if (isNew)
-                    ThrowMote();
+                if (!respawningAfterLoad)
+                {
+                    parent.HitPoints = parent.MaxHitPoints;
+                }
             }
+        }
+
+        public void Setup()
+        {
+            var maxtier = InfusionTier.Common;
+            var infusedLabelBuilder = new StringBuilder();
+            foreach (var infusion in infusions)
+            {
+                if (infusion.tier > maxtier)
+                {
+                    maxtier = infusion.tier;
+                }
+                if (infusedLabelBuilder.Length > 0)
+                {
+                    infusedLabelBuilder.Append(" ");
+                }
+                infusedLabelBuilder.Append(infusion.labelShort);
+            }
+            infusedLabelShort = infusedLabelBuilder.ToString();
+            infusedLabelColor = ResourceBank.Colors.InfusionColor(maxtier);
+
+            // We only throw notifications for newly spawned items.
+            if (isNew)
+                ThrowMote();
         }
 
         void ThrowMote()
@@ -180,10 +206,11 @@ namespace Infused
                 result.Append(" ");
             }
             result.Append(label);
-            result.Append(" (");
 
             if (parent.TryGetQuality(out QualityCategory qc))
             {
+                result.Append(" (");
+
                 if (shorten && result.Length > 20)
                 {
                     result.Append(qc.GetLabelShort());
@@ -192,15 +219,15 @@ namespace Infused
                 {
                     result.Append(qc.GetLabel());
                 }
-            }
 
-            if ((!shorten || result.Length <= 30) && parent.HitPoints < parent.MaxHitPoints)
-            {
-                result.Append(" ");
-                result.Append(((float)parent.HitPoints / parent.MaxHitPoints).ToStringPercent());
-            }
+                if ((!shorten || result.Length <= 30) && parent.HitPoints < parent.MaxHitPoints)
+                {
+                    result.Append(" ");
+                    result.Append(((float)parent.HitPoints / parent.MaxHitPoints).ToStringPercent());
+                }
 
-            result.Append(")");
+                result.Append(")");
+            }
 
             return result.ToString();
         }

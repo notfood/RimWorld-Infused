@@ -6,7 +6,7 @@ using Verse;
 namespace Infused
 {
     public static class ResourceBank
-	{
+    {
         public static class Strings {
             const string PREFIX = "Infused.";
 
@@ -88,5 +88,5 @@ namespace Infused
         public static class Sounds {
             public static SoundDef Infused;
         }
-	}
+    }
 }

@@ -43,9 +43,9 @@
     </allowance>
     <stats>
       <li>
-        <key>MeleeWeapon_AverageDPS</key>
+        <key>MeleeWeapon_DamageMultiplier</key>
         <value>
-          <offset>1</offset>
+          <multiplier>1.05</multiplier>
         </value>
       </li>
     </stats>
@@ -61,7 +61,7 @@
       <li>
         <key>MoveSpeed</key>
         <value>
-          <multiplier>1.03</multiplier>
+          <multiplier>1.05</multiplier>
         </value>
       </li>
     </stats>
@@ -649,7 +649,7 @@
       <li>
         <key>MoveSpeed</key>
         <value>
-          <multiplier>1.18</multiplier>
+          <multiplier>1.15</multiplier>
         </value>
       </li>
     </stats>
@@ -669,9 +669,9 @@
         </value>
       </li>
       <li>
-        <key>MeleeWeapon_AverageDPS</key>
+        <key>MeleeWeapon_DamageMultiplier</key>
         <value>
-          <offset>5</offset>
+          <multiplier>1.20</multiplier>
         </value>
       </li>
     </stats>
@@ -819,7 +819,7 @@
       <li>
         <key>MoveSpeed</key>
         <value>
-          <multiplier>1.18</multiplier>
+          <multiplier>1.15</multiplier>
         </value>
       </li>
     </stats>
@@ -852,6 +852,7 @@
     <labelShort>fatl</labelShort>
     <allowance>
       <ranged>false</ranged>
+      <apparel>false</apparel>
     </allowance>
     <stats>
       <li>
@@ -861,9 +862,9 @@
         </value>
       </li>
       <li>
-        <key>MeleeWeapon_AverageDPS</key>
+        <key>MeleeWeapon_DamageMultiplier</key>
         <value>
-          <offset>7</offset>
+          <multiplier>2.5</multiplier>
         </value>
       </li>
     </stats>
@@ -1061,7 +1062,7 @@
       <li>
         <key>MoveSpeed</key>
         <value>
-          <multiplier>1.18</multiplier>
+          <multiplier>1.15</multiplier>
         </value>
       </li>
     </stats>
@@ -1081,9 +1082,9 @@
         </value>
       </li>
       <li>
-        <key>MeleeWeapon_AverageDPS</key>
+        <key>MeleeWeapon_DamageMultiplier</key>
         <value>
-          <offset>10</offset>
+          <multiplier>1.25</multiplier>
         </value>
       </li>
     </stats>

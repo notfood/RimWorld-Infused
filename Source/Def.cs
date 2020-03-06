@@ -61,6 +61,11 @@ namespace Infused
 
             foreach (StatDef statDef in stats.Keys)
             {
+                if (statDef.forInformationOnly)
+                {
+                    Log.Warning($"Infused :: {defName} -> {statDef.defName} is ForInformationOnly");
+                }
+
                 if (statDef.parts == null)
                 {
                     statDef.parts = new List<StatPart>(1);
