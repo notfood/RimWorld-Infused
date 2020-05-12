@@ -56,10 +56,10 @@ namespace Infused
             #endif
         }
 
-        public static IEnumerable<Def> Infuse(Thing thing, QualityCategory q, int min = 0, bool skinThingFilter = false)
+        public static IEnumerable<Def> Infuse(Thing thing, QualityCategory q, int min = 0, bool skipThingFilter = false)
         {
             IEnumerable<PoolDef> query = DefDatabase<PoolDef>.AllDefs;
-            if (!skinThingFilter)
+            if (!skipThingFilter)
             {
                 query = query.Where(p => p.Allows(thing));
             }
@@ -84,7 +84,7 @@ namespace Infused
 
             foreach (var pool in pools)
             {
-                var infusions = AvailableInfusions(pool, tier, thing, skinThingFilter);
+                var infusions = AvailableInfusions(pool, tier, thing, skipThingFilter);
                 if (infusions.Count == 0) {
                     #if DEBUG
                     Log.Warning(" > Couldn't find any infusion to give to " + q + " " + thing.def.label);
@@ -101,13 +101,13 @@ namespace Infused
             }
         }
 
-        static List<Def> AvailableInfusions(PoolDef pool, InfusionTier tier, Thing thing, bool skinThingFilter = false) {
+        static List<Def> AvailableInfusions(PoolDef pool, InfusionTier tier, Thing thing, bool skipThingFilter = false) {
             List<Def> infusions = new List<Def>(0);
             while (tier >= 0 && infusions.Count == 0)
             {
                 infusions = (
                     from def in DefDatabase<Def>.AllDefs
-                    where def.pool == pool && def.tier == tier && (skinThingFilter || def.Allows(thing))
+                    where def.pool == pool && def.tier == tier && (skipThingFilter || def.Allows(thing))
                     select def
                 ).ToList();
 
