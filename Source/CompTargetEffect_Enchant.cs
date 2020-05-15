@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -9,18 +10,32 @@ namespace Infused
     {
         public override void DoEffectOn(Pawn user, Thing target)
         {
-            var infused = target.TryGetComp<CompInfused>();
-            if (!infused.IsActive)
+            float hp = (float)target.HitPoints / target.MaxHitPoints;
+
+            CompInfused infused = target.TryGetComp<CompInfused>();
+
+            var toTranfer = parent.GetComp<CompInfused>().Infusions.ToList();
+            if (toTranfer.NullOrEmpty())
             {
-                float hp = target.HitPoints / target.MaxHitPoints;
-                var toTranfer = parent.GetComp<CompInfused>();
-                foreach(Def infusion in toTranfer.Infusions)
+                List<Def> list = infused.RemoveRandom(Rand.Range(1, Settings.max));
+                Thing amplifier = ThingMaker.MakeThing(ResourceBank.Things.InfusedAmplifier);
+                infused = amplifier.TryGetComp<CompInfused>();
+                infused.SetInfusions(list);
+                amplifier.HitPoints = amplifier.MaxHitPoints;
+                GenSpawn.Spawn(amplifier, parent.Position, parent.Map);
+
+            }
+            else
+            {
+                foreach (Def infusion in toTranfer)
                 {
                     infused.Attach(infusion);
                 }
-                target.HitPoints = Mathf.FloorToInt(target.MaxHitPoints * hp);
-                infused.Setup();
             }
+
+            target.HitPoints = Mathf.FloorToInt(target.MaxHitPoints * hp);
+
+            infused.ThrowMote();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace Infused
@@ -16,21 +18,93 @@ namespace Infused
         Artifact
     }
 
-    public class TechLevelRange
+    public struct TechLevelRange
     {
-        public TechLevel min = TechLevel.Undefined;
-        public TechLevel max = TechLevel.Ultra;
+        public TechLevel min;
+        public TechLevel max;
+
+        public bool Allows(TechLevel tech)
+        {
+            return tech >= min
+                && tech <= max;
+        }
+
+        public void Merge(TechLevelRange other)
+        {
+            if (min > other.min)
+                min = other.min;
+            if (max < other.max)
+                max = other.max;
+        }
     }
 
-    public class InfusionAllowance
+    public struct InfusionAllowance
     {
-        public bool melee = true;
-        public bool ranged = true;
-        public bool apparel = true;
+        public bool all;
+        public bool amplifier;
+        public bool melee;
+        public bool ranged;
+        public bool apparel;
+        public bool furniture;
+
+        public bool Allows(ThingDef def)
+        {
+            return all
+                || amplifier && def == ResourceBank.Things.InfusedAmplifier
+                || melee && def.IsMeleeWeapon
+                || ranged && def.IsRangedWeapon
+                || apparel && def.IsApparel
+                || furniture && def.building != null;
+        }
+
+        public void Merge(InfusionAllowance other)
+        {
+            all       |= other.all;
+            amplifier |= other.amplifier;
+            melee     |= other.melee;
+            ranged    |= other.ranged;
+            apparel   |= other.apparel;
+            furniture |= other.furniture;
+        }
+    }
+
+    public class Filter
+    {
+        public readonly InfusionAllowance allowance = new InfusionAllowance()
+        {
+            all = true,
+            amplifier = true,
+            melee = true,
+            ranged = true,
+            apparel = true,
+            furniture = true
+        };
+
+        public readonly TechLevelRange techLevel = new TechLevelRange()
+        {
+            min = TechLevel.Undefined,
+            max = TechLevel.Archotech
+        };
+
+        public readonly ThingFilter match;
+
+        public bool Allows(Thing thing)
+        {
+            return techLevel.Allows(thing.def.techLevel)
+                && allowance.Allows(thing.def)
+                && (match?.Allows(thing) ?? true);
+        }
+
+        public void ResolveReferences()
+        {
+            match?.ResolveReferences();
+        }
     }
 
     public class Def : Verse.Def
     {
+        [Unsaved]
+        public string[] labels;
 
         public string labelShort = "#NN";
         public bool labelReversed;
@@ -39,16 +113,18 @@ namespace Infused
 
         public Dictionary<StatDef, StatMod> stats = new Dictionary<StatDef, StatMod>();
 
-        public PoolDef pool;
         public int weight = 1;
 
-        public InfusionAllowance allowance = new InfusionAllowance();
+        public List<string> tags;
 
-        public TechLevelRange techLevel = new TechLevelRange();
+        public Filter filter;
 
-        public ThingFilter match;
+        // Cached Strings for ITAb
+        public string DescriptionLabel { get; private set; }
+        public string DescriptionStats { get; private set; }
+        public string DescriptionExtras { get; private set; }
 
-        /// Get matching StatMod for given StatDef. Returns false when none.
+        // Get matching StatMod for given StatDef. Returns false when none.
         public bool TryGetStatValue(StatDef stat, out StatMod mod)
         {
             return stats.TryGetValue(stat, out mod);
@@ -78,27 +154,57 @@ namespace Infused
                 statDef.parts.Add(new StatPart_InfusedModifier(statDef));
             }
 
-            match?.ResolveReferences();
+            filter?.ResolveReferences();
+
+            BuildStringCache();
         }
 
-        public bool Allows(Thing thing)
+        void BuildStringCache()
         {
-            return MatchThingTech(thing.def.techLevel)
-                && MatchThingType(thing.def)
-                && (match?.Allows(thing) ?? true);
-        }
+            labels = label.Split(' ');
 
-        bool MatchThingTech(TechLevel tech)
-        {
-            return tech >= techLevel.min
-                && tech <= techLevel.max;
-        }
+            StringBuilder sb = new StringBuilder();
 
-        bool MatchThingType(ThingDef def)
-        {
-            return def.IsMeleeWeapon && allowance.melee
-                || def.IsRangedWeapon && allowance.ranged
-                || def.IsApparel && allowance.apparel;
+            // Label
+            sb.Append(label);
+            sb.Append("(");
+            sb.Append(ResourceBank.Strings.Tier(tier));
+            sb.Append(")");
+            DescriptionLabel = sb.ToString();
+
+            // Stats
+            sb.Clear();
+            foreach (var current in stats)
+            {
+                if (Math.Abs(current.Value.offset) > 0.0001f)
+                {
+                    sb.Append("     ");
+                    sb.Append(current.Value.offset > 0 ? "+" : "-");
+                    if (current.Key == StatDefOf.ComfyTemperatureMax || current.Key == StatDefOf.ComfyTemperatureMin)
+                    {
+                        sb.Append(Mathf.Abs(current.Value.offset).ToStringTemperatureOffset());
+                    }
+                    else if (current.Key.parts.Find(s => s is StatPart_InfusedModifier) is var modifier)
+                    {
+                        sb.Append(modifier.parentStat.ValueToString(Mathf.Abs(current.Value.offset)));
+                    }
+                    sb.Append(" ");
+                    sb.AppendLine(current.Key.LabelCap);
+                }
+                if (Math.Abs(current.Value.multiplier - 1) > 0.0001f)
+                {
+                    sb.Append("     ");
+                    sb.Append(Mathf.Abs(current.Value.multiplier).ToStringPercent());
+                    sb.Append(" ");
+                    sb.AppendLine(current.Key.LabelCap);
+                }
+            }
+            DescriptionStats = sb.ToString();
+
+            // Extras
+            sb.Clear();
+
+            DescriptionExtras = sb.ToString();
         }
 
         public class StatMod
@@ -111,26 +217,26 @@ namespace Infused
                 return string.Format("[StatMod offset={0}, multiplier={1}]", offset, multiplier);
             }
         }
+
+        public struct Info
+        {
+            public string label;
+            public string stats;
+            public string extras;
+        }
     }
 
-    public class PoolDef : Verse.Def
+    public class ChanceDef : Verse.Def
     {
+        public List<string> allowTags;
+
+        public Filter filter;
+
+        public int slotBonusPerParts = 0;
+
+        public List<float> slots = new List<float>{ 1f };
 
         public QualityChances chances;
-
-        [Unsaved]
-        InfusionAllowance allowance = new InfusionAllowance() {
-            apparel = false,
-            melee = false,
-            ranged = false
-        };
-
-        [Unsaved]
-        TechLevelRange techLevel = new TechLevelRange()
-        {
-            min = TechLevel.Ultra,
-            max = TechLevel.Undefined
-        };
 
         public float Chance(QualityCategory qc)
         {
@@ -155,6 +261,13 @@ namespace Infused
             }
         }
 
+        public override void ResolveReferences()
+        {
+            base.ResolveReferences();
+
+            filter?.ResolveReferences();
+        }
+
         public struct QualityChances
         {
             public float awful;
@@ -165,49 +278,5 @@ namespace Infused
             public float masterwork;
             public float legendary;
         }
-
-        public bool Allows(Thing thing)
-        {
-            return MatchThingTech(thing.def.techLevel)
-                && MatchThingType(thing.def);
-        }
-
-        bool MatchThingTech(TechLevel tech)
-        {
-            return tech >= techLevel.min
-                && tech <= techLevel.max;
-        }
-
-        bool MatchThingType(ThingDef def)
-        {
-            return def.IsMeleeWeapon && allowance.melee
-                || def.IsRangedWeapon && allowance.ranged
-                || def.IsApparel && allowance.apparel;
-        }
-
-        public override void ResolveReferences()
-        {
-            var defs = (
-                from def in DefDatabase<Def>.AllDefs
-                where def.pool == this
-                select def
-            );
-
-            foreach (var def in defs)
-            {
-                allowance.apparel |= def.allowance.apparel;
-                allowance.melee |= def.allowance.melee;
-                allowance.ranged |= def.allowance.ranged;
-
-                if (techLevel.min > def.techLevel.min)
-                    techLevel.min = def.techLevel.min;
-                if (techLevel.max < def.techLevel.max)
-                    techLevel.max = def.techLevel.max;
-            }
-
-            #if DEBUG
-            Log.Message("Infused :: Pool " + defName + " allows: from " + techLevel.min + " to " + techLevel.max + "\nApparel=" + allowance.apparel + "\nMelee=" + allowance.melee + "\nRanged=" + allowance.ranged);
-            #endif
-        }
-     }
+    }
 }

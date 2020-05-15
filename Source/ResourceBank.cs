@@ -29,6 +29,11 @@ namespace Infused
             public static readonly string SettingsMultiplierDesc = TL("Settings.MultiplierDesc");
             public static readonly string SettingsBias = TL("Settings.Bias");
             public static readonly string SettingsBiasDesc = TL("Settings.BiasDesc");
+            public static readonly string SettingsMaxSlots = TL("Settings.MaxSlots");
+            public static readonly string SettingsMaxSlotsDesc = TL("Settings.MaxSlotsDesc");
+            public static readonly string SettingsTierCurve = TL("Settings.TierCurve");
+            public static readonly string SettingsTierCurveDesc = TL("Settings.TierCurveDesc");
+            public static readonly string SettingsExtra = TL("Settings.Extra");
 
             //Your weapon, {0}, is infused!
             public static string Notice(string weapon) => TL("Notice", weapon);
@@ -56,6 +61,7 @@ namespace Infused
         }
 
         public static class Colors {
+            public static readonly Color Common = new Color(0.61f, 0.61f, 0.61f);
             public static readonly Color Uncommon = new Color(0.12f, 1, 0);
             public static readonly Color Rare = new Color(0, 0.44f, 1);
             public static readonly Color Epic = new Color(0.64f, 0.21f, 0.93f);
@@ -67,7 +73,7 @@ namespace Infused
                 switch (tier)
                 {
                     case InfusionTier.Common:
-                        return Color.white;
+                        return Common;
                     case InfusionTier.Uncommon:
                         return Uncommon;
                     case InfusionTier.Rare:
@@ -87,6 +93,12 @@ namespace Infused
         [DefOf]
         public static class Sounds {
             public static SoundDef Infused;
+        }
+
+        [DefOf]
+        public static class Things
+        {
+            public static ThingDef InfusedAmplifier;
         }
     }
 }

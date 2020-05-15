@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Defs>
-  <Infused.PoolDef>
-    <defName>Boosted</defName>
-    <chances>
-      <awful>0.10</awful>
-      <poor>0.10</poor>
-      <normal>0.10</normal>
-      <good>0.25</good>
-      <excellent>0.50</excellent>
-      <masterwork>0.75</masterwork>
-      <legendary>0.90</legendary>
-    </chances>
-  </Infused.PoolDef>
-  
   <Infused.Def Abstract="True" Name="BoostedBase">
-    <pool>Boosted</pool>
-    <techLevel>
-      <min>Industrial</min>
-      <max>Archotech</max>
-    </techLevel>
+    <tags>
+      <li>boosted</li>
+    </tags>
   </Infused.Def>
   
   <!-- ######################################## -->
@@ -44,11 +29,11 @@
     <defName>pad0</defName>
     <label>Basic Padded</label>
     <labelShort>pad0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -86,11 +71,11 @@
     <defName>def0</defName>
     <label>Basic Dense</label>
     <labelShort>def0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -128,11 +113,11 @@
     <defName>res0</defName>
     <label>Basic Resistant</label>
     <labelShort>res0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -152,11 +137,11 @@
     <defName>hot0</defName>
     <label>Basic Insulated</label>
     <labelShort>hot0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -176,11 +161,11 @@
     <defName>coo0</defName>
     <label>Basic Breezy</label>
     <labelShort>coo0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -200,11 +185,11 @@
     <defName>sci0</defName>
     <label>Exotic</label>
     <labelShort>sci0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -218,11 +203,11 @@
     <defName>awrk0</defName>
     <label>Basic Energizing</label>
     <labelShort>wrk0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -236,11 +221,11 @@
     <defName>amed0</defName>
     <label>Basic Sterilized</label>
     <labelShort>med0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -260,11 +245,11 @@
     <defName>skl0</defName>
     <label>Basic Academic</label>
     <labelShort>skl0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -278,11 +263,11 @@
     <defName>ani0</defName>
     <label>Basic Smelly</label>
     <labelShort>ani0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -302,11 +287,11 @@
     <defName>Aspd0</defName>
     <label>Basic Featherlight</label>
     <labelShort>spd0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -320,16 +305,16 @@
     <defName>psy0</defName>
     <label>Humming Basic</label>
     <labelShort>psy0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.02</multiplier>
+          <multiplier>0.98</multiplier>
         </value>
       </li>
     </stats>
@@ -338,11 +323,11 @@
     <defName>amec0</defName>
     <label>MechTech Basic</label>
     <labelShort>mec0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -377,7 +362,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.05</multiplier>
+          <multiplier>1.05</multiplier>
         </value>
       </li>
       <li>
@@ -392,11 +377,11 @@
     <defName>cmf0</defName>
     <label>Basic Comfy</label>
     <labelShort>cmf0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -458,11 +443,11 @@
     <defName>bal0</defName>
     <label>Basic Balanced</label>
     <labelShort>bal0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -476,11 +461,11 @@
     <defName>Mspd0l</defName>
     <label>Basic Light</label>
     <labelShort>Mspd0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -494,11 +479,11 @@
     <defName>dam0</defName>
     <label>Basic Reinforced</label>
     <labelShort>dam0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -512,11 +497,11 @@
     <defName>en0</defName>
     <label>Basic Enhanced</label>
     <labelShort>en0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -542,11 +527,11 @@
     <defName>cut0</defName>
     <label>Basic Serrated</label>
     <labelShort>cut0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -584,11 +569,11 @@
     <defName>mmed0</defName>
     <label>Basic Sterilized</label>
     <labelShort>med0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -614,11 +599,11 @@
     <defName>mwrk0</defName>
     <label>Basic Multitool</label>
     <labelShort>wrk0</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -702,11 +687,11 @@
     <defName>acc0</defName>
     <label>Basic Scoped</label>
     <labelShort>acc0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -748,15 +733,15 @@
   </Infused.Def>
   <Infused.Def ParentName="BoostedCommon">
     
-  <!-- Common Tier0 Greased -->
-  <defName>Mspd0g</defName>
+    <!-- Common Tier0 Greased -->
+    <defName>Mspd0g</defName>
     <label>Basic Greased</label>
     <labelShort>Mspd0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -772,11 +757,11 @@
     <defName>mov0</defName>
     <label>Basic Hunting</label>
     <labelShort>mov0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -798,11 +783,11 @@
     <defName>dec0</defName>
     <label>Basic Decorated</label>
     <labelShort>dec0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -817,7 +802,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>2</offset>
         </value>
@@ -829,11 +814,11 @@
     <defName>rmec0</defName>
     <label>MechTech Basic</label>
     <labelShort>mec0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -890,7 +875,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-2</offset>
         </value>
@@ -902,11 +887,11 @@
     <defName>mod0</defName>
     <label>Basic Modified</label>
     <labelShort>mod0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -972,11 +957,11 @@
     <defName>pad1</defName>
     <label>Padded SteamTech</label>
     <labelShort>pad1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -1014,11 +999,11 @@
     <defName>def1</defName>
     <label>SteamTech Dense</label>
     <labelShort>def1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -1056,11 +1041,11 @@
     <defName>res1</defName>
     <label>Resistant SteamTech</label>
     <labelShort>res1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -1080,11 +1065,11 @@
     <defName>hot1</defName>
     <label>SteamTech Insulated</label>
     <labelShort>hot1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -1104,11 +1089,11 @@
     <defName>coo1</defName>
     <label>Breezy SteamTech</label>
     <labelShort>coo1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -1128,11 +1113,11 @@
     <defName>sci1</defName>
     <label>Exotic SteamTech</label>
     <labelShort>sci1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -1146,11 +1131,11 @@
     <defName>awrk1</defName>
     <label>Energizing SteamTech</label>
     <labelShort>wrk1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -1164,11 +1149,11 @@
     <defName>amed1</defName>
     <label>Sterilized SteamTech</label>
     <labelShort>med1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -1188,11 +1173,11 @@
     <defName>skl1</defName>
     <label>Academic SteamTech</label>
     <labelShort>skl1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -1206,11 +1191,11 @@
     <defName>ani1</defName>
     <label>Smelly SteamTech</label>
     <labelShort>ani1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -1230,11 +1215,11 @@
     <defName>Aspd1</defName>
     <label>Featherlight SteamTech</label>
     <labelShort>spd1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -1248,16 +1233,16 @@
     <defName>psy1</defName>
     <label>Humming SteamTech</label>
     <labelShort>psy1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.04</multiplier>
+          <multiplier>0.96</multiplier>
         </value>
       </li>
     </stats>
@@ -1266,11 +1251,11 @@
     <defName>amec1</defName>
     <label>MechTech Advanced</label>
     <labelShort>mec1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -1305,7 +1290,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.10</multiplier>
+          <multiplier>0.90</multiplier>
         </value>
       </li>
       <li>
@@ -1320,11 +1305,11 @@
     <defName>cmf1</defName>
     <label>Comfy SteamTech</label>
     <labelShort>cmf1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -1386,11 +1371,11 @@
     <defName>bal1</defName>
     <label>SteamTech Balanced</label>
     <labelShort>bal1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -1404,11 +1389,11 @@
     <defName>Mspd1l</defName>
     <label>SteamTech Light</label>
     <labelShort>Mspd1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -1422,11 +1407,11 @@
     <defName>dam1</defName>
     <label>SteamTech Reinforced</label>
     <labelShort>dam1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -1440,11 +1425,11 @@
     <defName>en1</defName>
     <label>SteamTech Enhanced</label>
     <labelShort>en1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -1470,11 +1455,11 @@
     <defName>cut1</defName>
     <label>SteamTech Serrated</label>
     <labelShort>cut1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -1512,11 +1497,11 @@
     <defName>mmed1</defName>
     <label>Sterilized SteamTech</label>
     <labelShort>med1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -1542,11 +1527,11 @@
     <defName>mwrk1</defName>
     <label>SteamTech Multitool</label>
     <labelShort>wrk1</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -1628,11 +1613,11 @@
     <defName>acc1</defName>
     <label>SteamTech Scoped</label>
     <labelShort>acc1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -1677,11 +1662,11 @@
     <defName>Mspd1g</defName>
     <label>SteamTech Greased</label>
     <labelShort>Mspd1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -1696,11 +1681,11 @@
     <defName>mov1</defName>
     <label>SteamTech Hunting</label>
     <labelShort>mov1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -1721,11 +1706,11 @@
     <defName>dec1</defName>
     <label>SteamTech Decorated</label>
     <labelShort>dec1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -1740,7 +1725,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>4</offset>
         </value>
@@ -1752,11 +1737,11 @@
     <defName>rmec1</defName>
     <label>MechTech Advanced</label>
     <labelShort>mec1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -1813,7 +1798,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-4</offset>
         </value>
@@ -1825,11 +1810,11 @@
     <defName>mod1</defName>
     <label>Modified SteamTech</label>
     <labelShort>mod1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -1895,11 +1880,11 @@
     <defName>pad2</defName>
     <label>Padded MidTech</label>
     <labelShort>pad2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -1937,11 +1922,11 @@
     <defName>def2</defName>
     <label>MidTech Dense</label>
     <labelShort>def2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -1979,11 +1964,11 @@
     <defName>res2</defName>
     <label>Resistant MidTech</label>
     <labelShort>res2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -2003,11 +1988,11 @@
     <defName>hot2</defName>
     <label>MidTech Insulated</label>
     <labelShort>hot2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -2027,11 +2012,11 @@
     <defName>coo2</defName>
     <label>Breezy MidTech</label>
     <labelShort>coo2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -2051,11 +2036,11 @@
     <defName>sci2</defName>
     <label>Exotic MidTech</label>
     <labelShort>sci2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -2069,11 +2054,11 @@
     <defName>awrk2</defName>
     <label>Energizing MidTech</label>
     <labelShort>wrk2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -2087,11 +2072,11 @@
     <defName>amed2</defName>
     <label>Sterilized MidTech</label>
     <labelShort>med2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -2111,11 +2096,11 @@
     <defName>ani2m</defName>
     <label>Academic MidTech</label>
     <labelShort>ani2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -2129,11 +2114,11 @@
     <defName>ani2</defName>
     <label>Smelly MidTech</label>
     <labelShort>ani2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -2153,11 +2138,11 @@
     <defName>Aspd2</defName>
     <label>Featherlight MidTech</label>
     <labelShort>spd2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -2171,16 +2156,16 @@
     <defName>psy2</defName>
     <label>Humming MidTech</label>
     <labelShort>psy2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.06</multiplier>
+          <multiplier>0.94</multiplier>
         </value>
       </li>
     </stats>
@@ -2189,11 +2174,11 @@
     <defName>amec2</defName>
     <label>MechTech Elite</label>
     <labelShort>mec2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -2228,7 +2213,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.15</multiplier>
+          <multiplier>.85</multiplier>
         </value>
       </li>
       <li>
@@ -2243,11 +2228,11 @@
     <defName>cmf2</defName>
     <label>Comfy MidTech</label>
     <labelShort>cmf2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -2309,11 +2294,11 @@
     <defName>bal2</defName>
     <label>MidTech Balanced</label>
     <labelShort>bal2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -2327,11 +2312,11 @@
     <defName>Mspd2l</defName>
     <label>MidTech Light</label>
     <labelShort>Mspd2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -2345,11 +2330,11 @@
     <defName>dam2</defName>
     <label>MidTech Reinforced</label>
     <labelShort>dam2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -2363,11 +2348,11 @@
     <defName>en2</defName>
     <label>MidTech Enhanced</label>
     <labelShort>en2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -2393,11 +2378,11 @@
     <defName>cut2</defName>
     <label>MidTech Serrated</label>
     <labelShort>cut2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -2435,11 +2420,11 @@
     <defName>mmed2</defName>
     <label>Sterilized MidTech</label>
     <labelShort>med2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -2465,11 +2450,11 @@
     <defName>mwrk2</defName>
     <label>MidTech Multitool</label>
     <labelShort>wrk2</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -2551,11 +2536,11 @@
     <defName>acc2</defName>
     <label>MidTech Scoped</label>
     <labelShort>acc2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -2594,11 +2579,11 @@
     <defName>Mspd2g</defName>
     <label>MidTech Greased</label>
     <labelShort>Mspd2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -2613,11 +2598,11 @@
     <defName>mov2</defName>
     <label>MidTech Hunting</label>
     <labelShort>mov2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -2638,11 +2623,11 @@
     <defName>dec2</defName>
     <label>MidTech Decorated</label>
     <labelShort>dec2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -2657,7 +2642,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>6</offset>
         </value>
@@ -2669,11 +2654,11 @@
     <defName>rmec2</defName>
     <label>MechTech Elite</label>
     <labelShort>mec2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -2730,7 +2715,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-6</offset>
         </value>
@@ -2742,11 +2727,11 @@
     <defName>mod2</defName>
     <label>Modified MidTech</label>
     <labelShort>mod2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -2812,11 +2797,11 @@
     <defName>pad3</defName>
     <label>Absorbing UrbTech</label>
     <labelShort>pad3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -2848,11 +2833,11 @@
     <defName>def3</defName>
     <label>UrbTech Deflecting</label>
     <labelShort>def3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -2884,11 +2869,11 @@
     <defName>res3</defName>
     <label>UrbTech Extinguishing</label>
     <labelShort>res3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -2908,11 +2893,11 @@
     <defName>hot3</defName>
     <label>UrbTech Heating</label>
     <labelShort>hot3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -2932,11 +2917,11 @@
     <defName>coo3</defName>
     <label>UrbTech Cooling</label>
     <labelShort>coo3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -2956,11 +2941,11 @@
     <defName>sci3</defName>
     <label>UrbTech Scanning</label>
     <labelShort>sci3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -2974,11 +2959,11 @@
     <defName>awrk3</defName>
     <label>UrbTech Musclewire</label>
     <labelShort>wrk3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -2992,11 +2977,11 @@
     <defName>amed3</defName>
     <label>UrbTech Disinfecting</label>
     <labelShort>med3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -3016,11 +3001,11 @@
     <defName>skl3</defName>
     <label>UrbTech Neurowire</label>
     <labelShort>skl3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -3034,11 +3019,11 @@
     <defName>ani3</defName>
     <label>Fragrant UrbTech</label>
     <labelShort>ani3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -3058,11 +3043,11 @@
     <defName>Aspd3</defName>
     <label>UrbTech Glidewire</label>
     <labelShort>spd3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -3076,16 +3061,16 @@
     <defName>psy3</defName>
     <label>Shielded UrbTech</label>
     <labelShort>psy3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.10</multiplier>
+          <multiplier>0.90</multiplier>
         </value>
       </li>
     </stats>
@@ -3094,11 +3079,11 @@
     <defName>axen0</defName>
     <label>XenoTech Basic</label>
     <labelShort>xen0</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -3133,7 +3118,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.20</multiplier>
+          <multiplier>0.80</multiplier>
         </value>
       </li>
       <li>
@@ -3148,11 +3133,11 @@
     <defName>cmf3</defName>
     <label>Luxiurious UrbTech</label>
     <labelShort>cmf3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -3214,11 +3199,11 @@
     <defName>bal3</defName>
     <label>UrbTech Guided</label>
     <labelShort>bal3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -3232,11 +3217,11 @@
     <defName>Mspd3t</defName>
     <label>UrbTech Turbo</label>
     <labelShort>Mspd3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -3250,11 +3235,11 @@
     <defName>dam3</defName>
     <label>UrbTech Shocking</label>
     <labelShort>dam3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -3268,11 +3253,11 @@
     <defName>en3</defName>
     <label>UrbTech Energy</label>
     <labelShort>en3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -3298,11 +3283,11 @@
     <defName>cut3</defName>
     <label>UrbTech Slicing</label>
     <labelShort>cut3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -3340,11 +3325,11 @@
     <defName>mmed3</defName>
     <label>UrbTech Disinfecting</label>
     <labelShort>med3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -3370,11 +3355,11 @@
     <defName>mwrk3</defName>
     <label>UrbTech Programmable</label>
     <labelShort>wrk3</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -3456,11 +3441,11 @@
     <defName>acc3</defName>
     <label>UrbTech Laserscope</label>
     <labelShort>acc3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -3505,11 +3490,11 @@
     <defName>Mspd3r</defName>
     <label>MidTech Recharged</label>
     <labelShort>Mspd3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -3524,11 +3509,11 @@
     <defName>mov3</defName>
     <label>UrbTech Gliding</label>
     <labelShort>mov3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -3549,11 +3534,11 @@
     <defName>dec3</defName>
     <label>UrbTech Glittering</label>
     <labelShort>dec3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -3568,7 +3553,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>10</offset>
         </value>
@@ -3580,11 +3565,11 @@
     <defName>rxen1</defName>
     <label>XenoTech Basic</label>
     <labelShort>xen1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -3641,7 +3626,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-10</offset>
         </value>
@@ -3653,11 +3638,11 @@
     <defName>mod3</defName>
     <label>Customized UrbTech</label>
     <labelShort>mod3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -3723,11 +3708,11 @@
     <defName>pad4</defName>
     <label>Absorbing SpacerTech</label>
     <labelShort>pad4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -3759,11 +3744,11 @@
     <defName>def4</defName>
     <label>SpacerTech Deflecting</label>
     <labelShort>def4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -3795,11 +3780,11 @@
     <defName>res4</defName>
     <label>SpacerTech Extinguishing</label>
     <labelShort>res4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -3819,11 +3804,11 @@
     <defName>hot4</defName>
     <label>SpacerTech Heating</label>
     <labelShort>hot4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -3843,11 +3828,11 @@
     <defName>coo4</defName>
     <label>SpacerTech Cooling</label>
     <labelShort>coo4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -3867,11 +3852,11 @@
     <defName>sci4</defName>
     <label>SpacerTech Scanning</label>
     <labelShort>sci4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -3885,11 +3870,11 @@
     <defName>awrk4</defName>
     <label>SpacerTech Musclewire</label>
     <labelShort>wrk4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -3903,11 +3888,11 @@
     <defName>amed4</defName>
     <label>SpacerTech Disinfecting</label>
     <labelShort>med4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -3927,11 +3912,11 @@
     <defName>skl4</defName>
     <label>SpacerTech Neurowire</label>
     <labelShort>skl4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -3945,11 +3930,11 @@
     <defName>ani4</defName>
     <label>Fragrant SpacerTech</label>
     <labelShort>ani4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -3969,11 +3954,11 @@
     <defName>Aspd4</defName>
     <label>SpacerTech Glidewire</label>
     <labelShort>spd4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -3987,16 +3972,16 @@
     <defName>psy4</defName>
     <label>Shielded SpacerTech</label>
     <labelShort>psy4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.15</multiplier>
+          <multiplier>.85</multiplier>
         </value>
       </li>
     </stats>
@@ -4005,11 +3990,11 @@
     <defName>axen1</defName>
     <label>XenoTech Advanced</label>
     <labelShort>xen1</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -4044,7 +4029,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.30</multiplier>
+          <multiplier>1.30</multiplier>
         </value>
       </li>
       <li>
@@ -4059,11 +4044,11 @@
     <defName>cmf4</defName>
     <label>Luxurious SpacerTech</label>
     <labelShort>cmf4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -4125,11 +4110,11 @@
     <defName>bal4</defName>
     <label>SpacerTech Guided</label>
     <labelShort>bal4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -4143,11 +4128,11 @@
     <defName>Mspd4t</defName>
     <label>SpacerTech Turbo</label>
     <labelShort>Mspd4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -4161,11 +4146,11 @@
     <defName>dam4</defName>
     <label>SpacerTech Shocking</label>
     <labelShort>dam4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -4179,11 +4164,11 @@
     <defName>en4</defName>
     <label>SpacerTech Energy</label>
     <labelShort>en4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -4209,11 +4194,11 @@
     <defName>cut4</defName>
     <label>SpacerTech Serrated</label>
     <labelShort>cut4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -4251,11 +4236,11 @@
     <defName>mmed4</defName>
     <label>SpacerTech Disinfecting</label>
     <labelShort>med4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -4281,11 +4266,11 @@
     <defName>mwrk4</defName>
     <label>SpacerTech Programmable</label>
     <labelShort>wrk4</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -4367,11 +4352,11 @@
     <defName>acc4</defName>
     <label>SpacerTech Laserscope</label>
     <labelShort>acc4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -4416,11 +4401,11 @@
     <defName>Mspd4r</defName>
     <label>SpacerTech Recharged</label>
     <labelShort>Mspd4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -4435,11 +4420,11 @@
     <defName>mov4</defName>
     <label>SpacerTech Gliding</label>
     <labelShort>mov4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -4460,11 +4445,11 @@
     <defName>dec4</defName>
     <label>SpacerTech Glittering</label>
     <labelShort>dec4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -4479,7 +4464,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>15</offset>
         </value>
@@ -4491,11 +4476,11 @@
     <defName>rxen2</defName>
     <label>XenoTech Advanced</label>
     <labelShort>xen2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -4552,7 +4537,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-15</offset>
         </value>
@@ -4564,11 +4549,11 @@
     <defName>mod4</defName>
     <label>Customized SpacerTech</label>
     <labelShort>mod4</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -4634,11 +4619,11 @@
     <defName>pad5</defName>
     <label>Absorbing GlitterTech</label>
     <labelShort>pad5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -4670,11 +4655,11 @@
     <defName>def5</defName>
     <label>GlitterTech Deflecting</label>
     <labelShort>def5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -4706,11 +4691,11 @@
     <defName>res5</defName>
     <label>GlitterTech Extinguishing</label>
     <labelShort>res5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Heat</key>
@@ -4730,11 +4715,11 @@
     <defName>hot5</defName>
     <label>GlitterTech Heating</label>
     <labelShort>hot5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -4754,11 +4739,11 @@
     <defName>coo5</defName>
     <label>GlitterTech Cooling</label>
     <labelShort>coo5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ComfyTemperatureMin</key>
@@ -4778,11 +4763,11 @@
     <defName>sci5</defName>
     <label>GlitterTech Scanning</label>
     <labelShort>sci5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -4796,11 +4781,11 @@
     <defName>awrk5</defName>
     <label>GlitterTech Musclewire</label>
     <labelShort>wrk5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>WorkSpeedGlobal</key>
@@ -4814,11 +4799,11 @@
     <defName>amed5</defName>
     <label>GlitterTech Disinfecting</label>
     <labelShort>med5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ImmunityGainSpeed</key>
@@ -4838,11 +4823,11 @@
     <defName>skl5</defName>
     <label>GlitterTech Neurowire</label>
     <labelShort>skl5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>GlobalLearningFactor</key>
@@ -4856,11 +4841,11 @@
     <defName>ani5</defName>
     <label>Fragrant GlitterTech</label>
     <labelShort>ani5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>TameAnimalChance</key>
@@ -4880,11 +4865,11 @@
     <defName>Aspd5_apparel</defName>
     <label>GlitterTech Glidewire</label>
     <labelShort>spd5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -4894,15 +4879,15 @@
       </li>
     </stats>
   </Infused.Def>
-    <Infused.Def ParentName="BoostedArtifact">
+  <Infused.Def ParentName="BoostedArtifact">
     <defName>Aspd5_ranged</defName>
     <label>GlitterTech Glidewire</label>
     <labelShort>spd5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -4912,15 +4897,15 @@
       </li>
     </stats>
   </Infused.Def>
-    <Infused.Def ParentName="BoostedArtifact">
+  <Infused.Def ParentName="BoostedArtifact">
     <defName>Aspd5_melee</defName>
     <label>GlitterTech Glidewire</label>
     <labelShort>spd5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MoveSpeed</key>
@@ -4934,11 +4919,11 @@
     <defName>bal5</defName>
     <label>GlitterTech Guided</label>
     <labelShort>bal5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -4952,16 +4937,16 @@
     <defName>psy5</defName>
     <label>Shielded GlitterTech</label>
     <labelShort>psy5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>-.20</multiplier>
+          <multiplier>.80</multiplier>
         </value>
       </li>
     </stats>
@@ -4970,11 +4955,11 @@
     <defName>axen2</defName>
     <label>XenoTech Elite</label>
     <labelShort>xen2</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ResearchSpeed</key>
@@ -5009,7 +4994,7 @@
       <li>
         <key>PsychicSensitivity</key>
         <value>
-          <multiplier>.40</multiplier>
+          <multiplier>1.40</multiplier>
         </value>
       </li>
       <li>
@@ -5024,11 +5009,11 @@
     <defName>cmf5</defName>
     <label>Luxurious GlitterTech</label>
     <labelShort>cmf5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>false</ranged>
-      <apparel>true</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <apparel>true</apparel>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>ArmorRating_Blunt</key>
@@ -5090,11 +5075,11 @@
     <defName>Mspd5t</defName>
     <label>GlitterTech Turbo</label>
     <labelShort>Mspd5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_CooldownMultiplier</key>
@@ -5108,11 +5093,11 @@
     <defName>dam5</defName>
     <label>GlitterTech Shocking</label>
     <labelShort>dam5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -5126,11 +5111,11 @@
     <defName>en5</defName>
     <label>GlitterTech Energy</label>
     <labelShort>en5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeHitChance</key>
@@ -5156,11 +5141,11 @@
     <defName>cut5</defName>
     <label>GlitterTech Slicing</label>
     <labelShort>cut5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -5198,11 +5183,11 @@
     <defName>mmed5</defName>
     <label>GlitterTech Disinfecting</label>
     <labelShort>med5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MedicalTendQuality</key>
@@ -5228,11 +5213,11 @@
     <defName>mwrk5</defName>
     <label>GlitterTech Programmable</label>
     <labelShort>wrk5</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>MeleeWeapon_DamageMultiplier</key>
@@ -5308,11 +5293,11 @@
     <defName>acc5</defName>
     <label>GlitterTech Laserscope</label>
     <labelShort>acc5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5357,11 +5342,11 @@
     <defName>Mspd5r</defName>
     <label>GlitterTech Recharged</label>
     <labelShort>Mspd5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>RangedWeapon_Cooldown</key>
@@ -5376,11 +5361,11 @@
     <defName>mov5</defName>
     <label>GlitterTech Gliding</label>
     <labelShort>mov5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>HuntingStealth</key>
@@ -5401,11 +5386,11 @@
     <defName>dec5</defName>
     <label>GlitterTech Glittering</label>
     <labelShort>dec5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>SocialImpact</key>
@@ -5420,7 +5405,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>25</offset>
         </value>
@@ -5432,11 +5417,11 @@
     <defName>rxen3</defName>
     <label>XenoTech Elite</label>
     <labelShort>xen3</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5493,7 +5478,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-20</offset>
         </value>
@@ -5505,11 +5490,11 @@
     <defName>mod5</defName>
     <label>Customized GlitterTech</label>
     <labelShort>mod5</labelShort>
-    <allowance>
-      <melee>false</melee>
-      <ranged>true</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <ranged>true</ranged>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5553,11 +5538,11 @@
     <defName>rand</defName>
     <label>Randy's</label>
     <labelShort>rand</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5638,7 +5623,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>-7</offset>
         </value>
@@ -5649,11 +5634,11 @@
     <defName>cass</defName>
     <label>Cassie's</label>
     <labelShort>cass</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5734,7 +5719,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>25</offset>
         </value>
@@ -5745,11 +5730,11 @@
     <defName>phoe</defName>
     <label>Phoebe's</label>
     <labelShort>phoe</labelShort>
-    <allowance>
-      <melee>true</melee>
-      <ranged>false</ranged>
-      <apparel>false</apparel>
-    </allowance>
+    <filter>
+      <allowance>
+        <melee>true</melee>
+      </allowance>
+    </filter>
     <stats>
       <li>
         <key>AccuracyTouch</key>
@@ -5830,7 +5815,7 @@
         </value>
       </li>
       <li>
-        <key>Beauty</key>
+        <key>PawnBeauty</key>
         <value>
           <offset>35</offset>
         </value>

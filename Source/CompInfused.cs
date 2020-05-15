@@ -15,36 +15,96 @@ namespace Infused
         bool isNew;
         List<Def> infusions;
 
-        string infusedLabelShort;
-        Color infusedLabelColor;
+        Def cachedInfusedStrongest;
+        string cachedInfusedLabel;
+        string cachedInfusedLabelShort;
+        string cachedInfusedLabelAbbr;
+        string cachedInfusedDescriptionPart;
 
         public IEnumerable<Def> Infusions => infusions ?? Enumerable.Empty<Def>();
+        public int InfusionCount => IsActive ? infusions.Count : 0;
 
-        public string InfusedLabelShort => infusedLabelShort;
+        Def InfusedStrongest => cachedInfusedStrongest ?? (cachedInfusedStrongest = infusions.MaxBy(i => i.tier));
 
-        public Color InfusedLabelColor => infusedLabelColor;
+        public Color InfusedLabelColor => ResourceBank.Colors.InfusionColor(InfusedStrongest.tier);
+
+        public string InfusedLabel => cachedInfusedLabel ?? (cachedInfusedLabel = GetInfusionLabel(false));
+        public string InfusedLabelShort => cachedInfusedLabelShort ?? (cachedInfusedLabelShort = GetInfusionLabel(true));
+        public string InfusedLabelAbbr => cachedInfusedLabelAbbr ?? (cachedInfusedLabelAbbr = GetInfusionLabelAbbr());
 
         public bool IsActive => !infusions.NullOrEmpty();
 
-        public void Attach(Def def) {
-            if (infusions == null) {
+        void InvalidateCache()
+        {
+            cachedInfusedStrongest = null;
+            cachedInfusedLabel = null;
+            cachedInfusedLabelShort = null;
+            cachedInfusedLabelAbbr = null;
+            cachedInfusedDescriptionPart = null;
+        }
+
+        public void Attach(Def def)
+        {
+            if (infusions == null)
+            {
                 infusions = new List<Def>();
                 isNew = true;
             }
+
+            if (infusions.Contains(def))
+            {
+                return;
+            }
+
             infusions.Add(def);
+            infusions = infusions.OrderByDescending(i => i.tier).ToList();
+
+            InvalidateCache();
+        }
+
+        public void SetInfusions(List<Def> list)
+        {
+            infusions = list.Distinct().OrderByDescending(i => i.tier).ToList();
+            isNew = true;
+
+            InvalidateCache();
+        }
+
+        public List<Def> RemoveRandom(int v)
+        {
+            var randomInfusions = infusions.TakeRandom(v).ToList();
+
+            foreach(var infusion in randomInfusions)
+            {
+                infusions.Remove(infusion);
+            }
+
+            InvalidateCache();
+
+            return randomInfusions;
         }
 
         public override void Initialize(CompProperties props)
         {
             base.Initialize(props);
+        }
 
+        public override void PostPostMake()
+        {
             if (props is CompProperties_Enchant infusedProps)
             {
                 #if DEBUG
                 Log.Message($"Infused :: {parent} will be infused");
                 #endif
                 // This is ONLY called when Infused is set in XML
-                infusions = InfusedMod.Infuse(parent, infusedProps.quality, 1, true).ToList();
+                infusions = InfusedMod.Infuse(
+                    parent,
+                    infusedProps.quality,
+                    max:Settings.max,
+                    skipThingFilter: true
+                ).ToList();
+
+                parent.HitPoints = parent.MaxHitPoints;
             }
         }
 
@@ -52,42 +112,14 @@ namespace Infused
         {
             base.PostSpawnSetup(respawningAfterLoad);
 
-            if (IsActive)
-            {
-                Setup();
-
-                if (!respawningAfterLoad)
-                {
-                    parent.HitPoints = parent.MaxHitPoints;
-                }
-            }
-        }
-
-        public void Setup()
-        {
-            var maxtier = InfusionTier.Common;
-            var infusedLabelBuilder = new StringBuilder();
-            foreach (var infusion in infusions)
-            {
-                if (infusion.tier > maxtier)
-                {
-                    maxtier = infusion.tier;
-                }
-                if (infusedLabelBuilder.Length > 0)
-                {
-                    infusedLabelBuilder.Append(" ");
-                }
-                infusedLabelBuilder.Append(infusion.labelShort);
-            }
-            infusedLabelShort = infusedLabelBuilder.ToString();
-            infusedLabelColor = ResourceBank.Colors.InfusionColor(maxtier);
-
             // We only throw notifications for newly spawned items.
-            if (isNew)
+            if (isNew && IsActive)
+            {
                 ThrowMote();
+            }
         }
 
-        void ThrowMote()
+        internal void ThrowMote()
         {
             CompQuality compQuality = parent.TryGetComp<CompQuality>();
             if (compQuality == null)
@@ -119,40 +151,24 @@ namespace Infused
         {
             base.PostExposeData();
 
-            if (Scribe.mode == LoadSaveMode.Saving) {
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
                 // let's not bloat saves...
-                if (infusions != null) {
-                    if (infusions.Count > 1) {
+                if (infusions != null)
+                {
+                    if (infusions.Count > 1)
+                    {
                         infusions = infusions.OrderBy(i => i.labelReversed).ToList();
                     }
                     Scribe_Collections.Look(ref infusions, "infusions", LookMode.Def);
                 }
-                    
-            } else if (Scribe.mode == LoadSaveMode.LoadingVars) {
+
+            }
+            else if (Scribe.mode == LoadSaveMode.LoadingVars)
+            {
 
                 // Easy loading
                 Scribe_Collections.Look(ref infusions, "infusions", LookMode.Def);
-
-                // Loading legacy save...
-                string prefixDefName = string.Empty;
-                string suffixDefName = string.Empty;
-
-                Scribe_Values.Look(ref prefixDefName, "prefix");
-                Scribe_Values.Look(ref suffixDefName, "suffix");
-
-                if (!prefixDefName.NullOrEmpty())
-                {
-                    var prefix = DefDatabase<Def>.GetNamedSilentFail(prefixDefName);
-                    if (prefix != null)
-                        Attach(prefix);
-                }
-                if (!suffixDefName.NullOrEmpty())
-                {
-                    
-                    var suffix = DefDatabase<Def>.GetNamedSilentFail(suffixDefName);
-                    if (suffix != null)
-                        Attach(suffix);
-                }
 
                 isNew = false;
             }
@@ -163,49 +179,74 @@ namespace Infused
             return false;
         }
 
+        public override void DrawGUIOverlay()
+        {
+            if (Find.CameraDriver.CurrentZoom != CameraZoomRange.Closest)
+            {
+                return;
+            }
+
+            if (!IsActive)
+            {
+                return;
+            }
+
+            GenMapUI.DrawThingLabel(GenMapUI.LabelDrawPosFor(parent, -0.66f), InfusedLabelAbbr, InfusedLabelColor);
+        }
+
         public override string TransformLabel(string label)
         {
             // When this function is called, our infusion is no longer new.
             isNew = false;
 
-            if (IsActive) {
+            if (IsActive)
+            {
                 return GetInfusionLabel();
             }
 
             return base.TransformLabel(label);
         }
 
-        public string GetInfusionLabel(bool shorten = true)
+        string GetInfusionLabelAbbr()
+        {
+            if (infusions.Count > 1)
+            {
+                return $"{InfusedStrongest.labelShort}(+{infusions.Count - 1})";
+            }
+            return InfusedStrongest.labelShort;
+        }
+
+        string GetInfusionLabel(bool shorten = true)
         {
             var result = new StringBuilder();
 
-            string label = parent.def.label;
-            foreach (var infusion in infusions)
-            {
-                result.Length = 0;
-                if (infusion.labelReversed)
-                {
-                    result.Append(label);
-                    result.Append(" ");
-                    result.Append(infusion.label);
-                    label = result.ToString();
-                }
-                else
-                {
-                    result.Append(infusion.label);
-                    result.Append(" ");
-                    result.Append(label);
-                    label = result.ToString();
-                }
-            }
+            string label;
 
-            result.Length = 0;
             if (parent.Stuff != null)
             {
-                result.Append(parent.Stuff.LabelAsStuff);
+                label = "ThingMadeOfStuffLabel".Translate(parent.Stuff.LabelAsStuff, parent.def.label);
+            }
+            else
+            {
+                label = parent.def.label;
+            }
+
+            IEnumerable<string> filter(bool reversed) => infusions.Where(i => i.labelReversed == reversed).SelectMany(i => i.labels).Distinct();
+
+            var prefixes = filter(false);
+            var suffixes = filter(true);
+
+            foreach (var str in prefixes)
+            {
+                result.Append(str);
                 result.Append(" ");
             }
             result.Append(label);
+            foreach (var str in suffixes)
+            {
+                result.Append(" ");
+                result.Append(str);
+            }
 
             if (parent.TryGetQuality(out QualityCategory qc))
             {
@@ -226,55 +267,40 @@ namespace Infused
                     result.Append(((float)parent.HitPoints / parent.MaxHitPoints).ToStringPercent());
                 }
 
+                if ((parent as Apparel)?.WornByCorpse ?? false)
+                {
+                    result.Append(" ");
+                    result.Append("WornByCorpseChar".Translate());
+                }
+
                 result.Append(")");
             }
 
-            return result.ToString();
+            return result.ToString().ToLower().CapitalizeFirst();
         }
 
         public override string GetDescriptionPart()
         {
-            if (IsActive) {
-                return base.GetDescriptionPart() + "\n" + GetDescriptionInfused();
-            }
-
-            return base.GetDescriptionPart();
-        }
-
-        //Make a new infusion stat information.
-        public string GetDescriptionInfused()
-        {
-            var result = new StringBuilder(null);
-            foreach (var infusion in infusions) {
-                result.Append(infusion.label)
-                      .Append(" (")
-                      .Append(ResourceBank.Strings.Tier(infusion.tier))
-                      .AppendLine(")");
-                foreach (var current in infusion.stats)
+            if (cachedInfusedDescriptionPart == null)
+            {
+                if (IsActive)
                 {
-                    if (Math.Abs(current.Value.offset) > 0.0001f)
-                    {
-                        result.Append("     " + (current.Value.offset > 0 ? "+" : "-"));
-                        if (current.Key == StatDefOf.ComfyTemperatureMax || current.Key == StatDefOf.ComfyTemperatureMin)
-                        {
-                            result.Append(Mathf.Abs(current.Value.offset).ToStringTemperatureOffset());
-                        }
-                        else if (current.Key.parts.Find(s => s is StatPart_InfusedModifier) is var modifier)
-                        {
-                            result.Append(modifier.parentStat.ValueToString(Mathf.Abs(current.Value.offset)));
-                        }
-                        result.AppendLine(" " + current.Key.LabelCap);
-                    }
-                    if (Math.Abs(current.Value.multiplier - 1) > 0.0001f)
-                    {
-                        result.Append("     " + Mathf.Abs(current.Value.multiplier).ToStringPercent());
-                        result.AppendLine(" " + current.Key.LabelCap);
-                    }
-                }
-                result.AppendLine();
+                    var sb = new StringBuilder();
 
+                    sb.AppendLine(base.GetDescriptionPart());
+
+                    foreach (var infusion in infusions)
+                    {
+                        sb.AppendLine(infusion.DescriptionLabel);
+                        sb.Append(infusion.DescriptionStats);
+                        sb.Append(infusion.DescriptionExtras);
+                        sb.AppendLine();
+                    }
+
+                    cachedInfusedDescriptionPart = sb.ToString();
+                }
             }
-            return result.ToString();
+            return cachedInfusedDescriptionPart;
         }
 
         public static bool TryGetInfusedComp(ThingWithComps thing, out CompInfused comp)

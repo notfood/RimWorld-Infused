@@ -24,12 +24,7 @@ namespace Infused
         public override void DoSettingsWindowContents(Rect inRect) => Settings.DoSettingsWindowContents(inRect);
 
         static void Inject() {
-            var defs = (
-                from def in DefDatabase<ThingDef>.AllDefs
-                where (def.IsApparel || def.IsWeapon)
-                && def.HasComp(typeof(CompQuality)) && !def.HasComp(typeof(CompInfused))
-                select def
-            ).ToList();
+            var defs = DefDatabase<ThingDef>.AllDefs.Where(InjectPredicate).ToList();
 
             var tabType = typeof(ITab_Infused);
             var tab = InspectTabManager.GetSharedInstance(tabType);
@@ -56,95 +51,196 @@ namespace Infused
             #endif
         }
 
-        public static IEnumerable<Def> Infuse(Thing thing, QualityCategory q, int min = 0, bool skipThingFilter = false)
+        static bool InjectPredicate(ThingDef def)
         {
-            IEnumerable<PoolDef> query = DefDatabase<PoolDef>.AllDefs;
-            if (!skipThingFilter)
+            if (!def.HasComp(typeof(CompQuality)))
             {
-                query = query.Where(p => p.Allows(thing));
+                return false;
             }
-            if (min <= 0) {
-                // Get those Infused lucky rolls
-                query = query.Where(p => Rand.Value < p.Chance(q) * Settings.mult);
-            } else {
-                query = query.OrderBy(p => Guid.NewGuid()).Take(min);
+            if (def.HasComp(typeof(CompInfused)))
+            {
+                return false;
             }
+            if (def.Verbs.Any(v => typeof(Verb_ShootOneUse).IsAssignableFrom(v.GetType())))
+            {
+                return false;
+            }
+            return true;
+        }
 
-            var pools = query.ToList();
+        public static IEnumerable<Def> Infuse(Thing thing, QualityCategory q, int min = 0, int max = 1, bool skipThingFilter = false)
+        {
+            // pick the first chancedef available
+            var chanceDef = DefDatabase<ChanceDef>.AllDefs.FirstOrDefault(c => c.filter?.Allows(thing) ?? false);
 
-            if (pools.Count == 0) {
+            if (chanceDef == null)
+            {
                 yield break;
             }
 
             #if DEBUG
-            Log.Message("Infused :: " + q + " " + thing.def.label + " got " + pools.Count + " lucky rolls");
+            Log.Message($" > Chance to roll from {chanceDef.defName} for {q} {thing.def.label}");
             #endif
 
-            var tier = RollTier(q);
+            IEnumerator<float> roller = RollChance(chanceDef, thing, q);
+            IEnumerator<Def> available = null;
 
-            foreach (var pool in pools)
+            for (int roll = 0; roll < max; roll++)
             {
-                var infusions = AvailableInfusions(pool, tier, thing, skipThingFilter);
-                if (infusions.Count == 0) {
-                    #if DEBUG
-                    Log.Warning(" > Couldn't find any infusion to give to " + q + " " + thing.def.label);
-                    #endif
-                    continue;
+                // ensure min slots, then next ones are up to the first time the roller says false or max rolls
+                if (roll >= min && !roller.MoveNext())
+                {
+                    yield break;
                 }
-                var infusion = infusions.RandomElementByWeight(i => i.weight);
 
-                #if DEBUG
-                Log.Message(" > Added " + infusion + " to " + q + " " + thing.def.label + " from " + pool.defName + "-" + infusion.tier);
-                #endif
+                // if we got here, we need to satisfy the request at least once, initialize available Infusion Defs
+                if (available == null)
+                {
+                    available = RollInfusion(chanceDef, thing, q, skipThingFilter);
+                }
 
-                yield return infusion;
+                // Give an Infusion or stop the moment we don't have any to give
+                if (available.MoveNext())
+                {
+                    #if DEBUG
+                    Log.Message($" > Gave {available.Current.tier} {available.Current} to {q} {thing.def.label} with a {roller.Current} chance");
+                    #endif
+
+                    yield return available.Current;
+                }
+                else
+                {
+                    yield break;
+                }
             }
         }
 
-        static List<Def> AvailableInfusions(PoolDef pool, InfusionTier tier, Thing thing, bool skipThingFilter = false) {
-            List<Def> infusions = new List<Def>(0);
-            while (tier >= 0 && infusions.Count == 0)
+        static IEnumerator<float> RollChance(ChanceDef chanceDef, Thing thing, QualityCategory q)
+        {
+            foreach (var slotChance in chanceDef.slots)
             {
-                infusions = (
-                    from def in DefDatabase<Def>.AllDefs
-                    where def.pool == pool && def.tier == tier && (skipThingFilter || def.Allows(thing))
-                    select def
-                ).ToList();
-
-                if (infusions.Count == 0)
+                float chance = chanceDef.Chance(q) * slotChance;
+                bool roll = Rand.Chance(chance);
+                #if DEBUG
+                Log.Message($"   > Rolled {roll} with {chance}");
+                #endif
+                if (roll)
                 {
-                    #if DEBUG
-                    Log.Warning(" > No " + tier + " infusions for " + pool.defName);
-                    #endif
-                    tier--;
+                    yield return chance;
+                }
+                else
+                {
+                    break;
                 }
             }
-            return infusions;
+
+            if (thing.def.apparel != null && chanceDef.slotBonusPerParts > 0)
+            {
+                int bonus = thing.def.apparel.bodyPartGroups.Count % chanceDef.slotBonusPerParts;
+
+                float firstSlotChance = chanceDef.slots.FirstOrFallback(1f);
+
+                #if DEBUG
+                Log.Message($"   + Bonus {bonus}");
+                #endif
+
+                for (int i = 1; i <= bonus; i++)
+                {
+                    float chance = chanceDef.Chance(q) * firstSlotChance * 0.8f / i;
+
+                    if (Rand.Chance(chance))
+                    {
+                        yield return chance;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+
+        static IEnumerator<Def> RollInfusion(ChanceDef chanceDef, Thing thing, QualityCategory q, bool skipThingFilter) {
+            IEnumerable<Def> available = DefDatabase<Def>.AllDefs;
+
+            bool squash = false;
+
+            if (chanceDef.allowTags != null)
+            {
+                available = available.Where(i => chanceDef.allowTags.Intersect(i.tags).Any());
+
+                squash = true;
+            }
+
+            if (!skipThingFilter)
+            {
+                available = available.Where(i => i.filter?.Allows(thing) ?? true);
+
+                squash = true;
+            }
+
+            if (squash)
+            {
+                available = available.ToList();
+            }
+
+            while (true)
+            {
+                var tier = RollTier(q);
+
+                // select Infused Defs
+                List<Def> selected;
+                do
+                {
+                    selected = available.Where(i => i.tier == tier).ToList();
+
+                    #if DEBUG
+                    if (selected.Count == 0)
+                    {
+                        Log.Message($"   > No available infusions in {tier} tier for {thing.def.label}");
+                    }
+                    #endif
+
+                    tier--;
+                } while (selected.Count == 0 && tier >= 0);
+
+
+                if (selected.Count == 0)
+                {
+                    #if DEBUG
+                    Log.Warning($"   > No available infusions for {thing.def.label}");
+                    #endif
+
+                    yield break;
+                }
+
+                yield return selected.RandomElementByWeight(i => i.weight);
+            }
         }
 
         static InfusionTier RollTier(QualityCategory q)
         {
             float roll = Mathf.Pow(Rand.Value, 1 + (float) q * Settings.bias);
             #if DEBUG
-            Log.Message(" > rolled: " + roll + " for " + q);
+            Log.Message($"   > tier chance is {roll}");
             #endif
-            if (roll < 0.03175f)
+            if (roll < Settings.weight_artifact)
             {
                 return InfusionTier.Artifact;
             }
-            if (roll < 0.0625f)
+            if (roll < Settings.weight_legendary)
             {
                 return InfusionTier.Legendary;
             }
-            if (roll < 0.125f)
+            if (roll < Settings.weight_epic)
             {
                 return InfusionTier.Epic;
             }
-            if (roll < 0.25f)
+            if (roll < Settings.weight_rare)
             {
                 return InfusionTier.Rare;
             }
-            if (roll < 0.50f)
+            if (roll < Settings.weight_uncommon)
             {
                 return InfusionTier.Uncommon;
             }
@@ -157,46 +253,16 @@ namespace Infused
     {
         static void Postfix(CompQuality __instance, QualityCategory q, ArtGenerationContext source)
         {
+            var thing = __instance.parent;
+
             // Can we be infused?
-            var compInfused = __instance.parent.TryGetComp<CompInfused>();
-            if (!(compInfused?.IsActive ?? true))
+            var infusions = InfusedMod.Infuse(thing, q, max: Settings.max).ToList();
+            if (infusions.Count > 0)
             {
-                var thing = __instance.parent;
+                thing.TryGetComp<CompInfused>()?.SetInfusions(infusions);
 
-                foreach(var infusion in InfusedMod.Infuse(thing, q))
-                {
-                    compInfused.Attach(infusion);
-                }
+                __instance.parent.HitPoints = __instance.parent.MaxHitPoints;
             }
-        }
-    }
-
-    [HarmonyPatch(typeof(Thing), nameof(Thing.DrawGUIOverlay))]
-    static class Thing_DrawGUIOverlay_Patch
-    {
-        static void Postfix(Thing __instance) {
-            if (Find.CameraDriver.CurrentZoom != CameraZoomRange.Closest)
-            {
-                return;
-            }
-
-            if (!CompInfused.TryGetInfusedComp(__instance, out CompInfused comp)) {
-                return;
-            }
-
-            Text.Font = GameFont.Tiny;
-            Text.Anchor = TextAnchor.UpperCenter;
-            GUI.color = comp.InfusedLabelColor;
-
-            string text = comp.InfusedLabelShort;
-            float x = Text.CalcSize(text).x;
-            var screenPos = GenMapUI.LabelDrawPosFor(__instance, -0.66f);
-            var rect = new Rect(screenPos.x - x / 2f, screenPos.y - 3f, x, 999f);
-            Widgets.Label(rect, text);
-
-            GUI.color = Color.white;
-            Text.Anchor = TextAnchor.UpperLeft;
-            Text.Font = GameFont.Small;
         }
     }
 }
