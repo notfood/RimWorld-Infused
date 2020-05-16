@@ -279,4 +279,19 @@ namespace Infused
             public float legendary;
         }
     }
+
+    public class OnHitDef : Verse.Def
+    {
+        public DamageDef damage;
+
+        public StatDef amount;
+        public StatDef chance;
+
+        public override void PostLoad()
+        {
+            defName = "OnHitDef" + number++;
+        }
+
+        static int number;
+    }
 }

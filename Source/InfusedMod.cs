@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Infused
     {
         public InfusedMod(ModContentPack content) : base(content)
         {
-            new Harmony("rimworld.infused").PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+            new Harmony("rimworld.infused").PatchAll(Assembly.GetExecutingAssembly());
 
             LongEventHandler.ExecuteWhenFinished(Inject);
 
@@ -246,12 +247,107 @@ namespace Infused
             }
             return InfusionTier.Common;
         }
+
+        internal static void ModifyDamageFor(Thing thing, DamageInfo dinfo, DamageWorker.DamageResult damageResult)
+        {
+            {
+                if (!(dinfo.Instigator is Pawn instigator))
+                {
+                    return;
+                }
+
+                if (!instigator.equipment?.HasAnything() ?? false)
+                {
+                    return;
+                }
+
+                if (damageResult.totalDamageDealt <= 0)
+                {
+                    return;
+                }
+            }
+
+            foreach (var onHitDef in DefDatabase<OnHitDef>.AllDefs)
+            {
+                if (thing.Destroyed)
+                {
+                    return;
+                }
+
+                float amount = dinfo.Instigator.GetStatValue(onHitDef.amount);
+                float chance = dinfo.Instigator.GetStatValue(onHitDef.chance);
+
+                if (amount > 0f && chance <= 0f)
+                {
+                    chance = 0.1f;
+                }
+
+                if (amount > 0f && chance > 0f && Rand.Chance(chance))
+                {
+                    DamageInfo extra = new DamageInfo(
+                        onHitDef.damage,
+                        amount,
+                        dinfo.ArmorPenetrationInt,
+                        dinfo.Angle,
+                        dinfo.Instigator,
+                        dinfo.HitPart,
+                        dinfo.Weapon,
+                        dinfo.Category,
+                        dinfo.IntendedTarget);
+
+                    thing.PreApplyDamage(ref extra, out bool absorbed);
+                    if (absorbed)
+                    {
+                        continue;
+                    }
+
+                    DamageWorker.DamageResult result = onHitDef.damage.Worker.Apply(extra, thing);
+
+                    if (result.totalDamageDealt <= 0)
+                    {
+                        continue;
+                    }
+
+                    thing.PostApplyDamage(extra, result.totalDamageDealt);
+
+                    damageResult.wounded                |= result.wounded;
+                    damageResult.headshot               |= result.headshot;
+                    damageResult.deflected              |= result.deflected;
+                    damageResult.stunned                |= result.stunned;
+                    damageResult.deflectedByMetalArmor  |= result.deflectedByMetalArmor;
+                    damageResult.diminished             |= result.diminished;
+                    damageResult.diminishedByMetalArmor |= result.diminishedByMetalArmor;
+
+                    if (result.parts != null)
+                    {
+                        foreach (var part in result.parts)
+                        {
+                            damageResult.AddPart(damageResult.hitThing, part);
+                        }
+                    }
+
+                    if (result.hediffs != null)
+                    {
+                        foreach (var hediff in result.hediffs)
+                        {
+                            damageResult.AddHediff(hediff);
+                        }
+                    }
+
+                    if (onHitDef.damage.harmsHealth)
+                    {
+                        damageResult.totalDamageDealt += result.totalDamageDealt;
+                    }
+
+                }
+            }
+        }
     }
 
     [HarmonyPatch(typeof(CompQuality), nameof(CompQuality.SetQuality))]
     static class CompQuality_SetQuality_Patch
     {
-        static void Postfix(CompQuality __instance, QualityCategory q, ArtGenerationContext source)
+        static void Postfix(CompQuality __instance, QualityCategory q)
         {
             var thing = __instance.parent;
 
@@ -265,4 +361,35 @@ namespace Infused
             }
         }
     }
+
+    [HarmonyPatch(typeof(Thing), nameof(Thing.TakeDamage))]
+    static class DamageResult_Ctor_Patch
+    {
+        static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> e)
+        {
+            MethodInfo method = AccessTools.Method(typeof(InfusedMod), nameof(InfusedMod.ModifyDamageFor));
+            MethodInfo target = AccessTools.Method(typeof(DamageWorker), nameof(DamageWorker.Apply));
+
+            var instructionList = e.ToList();
+            for (int i = 0; i < instructionList.Count; i++)
+            {
+                var inst = instructionList[i];
+
+                yield return inst;
+
+                if (inst.Calls(target))
+                {
+                    yield return new CodeInstruction(OpCodes.Stloc_3);
+                    yield return new CodeInstruction(OpCodes.Ldarg_0);
+                    yield return new CodeInstruction(OpCodes.Ldarg_1);
+                    yield return new CodeInstruction(OpCodes.Ldloc_3);
+                    yield return new CodeInstruction(OpCodes.Call, method);
+
+                    i++;
+                }
+            }
+        }
+    }
+
+
 }
