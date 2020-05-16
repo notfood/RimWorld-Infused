@@ -170,6 +170,8 @@ namespace Infused
                 // Easy loading
                 Scribe_Collections.Look(ref infusions, "infusions", LookMode.Def);
 
+                infusions?.RemoveAll(item => item == null);
+
                 isNew = false;
             }
         }
