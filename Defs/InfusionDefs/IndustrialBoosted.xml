@@ -5540,7 +5540,7 @@
     <labelShort>rand</labelShort>
     <filter>
       <allowance>
-        <melee>true</melee>
+        <ranged>true</ranged>
       </allowance>
     </filter>
     <stats>
@@ -5636,7 +5636,7 @@
     <labelShort>cass</labelShort>
     <filter>
       <allowance>
-        <melee>true</melee>
+        <ranged>true</ranged>
       </allowance>
     </filter>
     <stats>
@@ -5732,7 +5732,7 @@
     <labelShort>phoe</labelShort>
     <filter>
       <allowance>
-        <melee>true</melee>
+        <ranged>true</ranged>
       </allowance>
     </filter>
     <stats>
