@@ -804,7 +804,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>2</offset>
+          <offset>1</offset>
         </value>
       </li>
     </stats>
@@ -872,12 +872,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.05</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-2</offset>
         </value>
       </li>
     </stats>
@@ -1727,7 +1721,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>4</offset>
+          <offset>1</offset>
         </value>
       </li>
     </stats>
@@ -1795,12 +1789,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.10</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-4</offset>
         </value>
       </li>
     </stats>
@@ -2644,7 +2632,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>6</offset>
+          <offset>1</offset>
         </value>
       </li>
     </stats>
@@ -2712,12 +2700,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.15</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-6</offset>
         </value>
       </li>
     </stats>
@@ -3555,7 +3537,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>10</offset>
+          <offset>1</offset>
         </value>
       </li>
     </stats>
@@ -3623,12 +3605,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.20</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-10</offset>
         </value>
       </li>
     </stats>
@@ -4466,7 +4442,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>15</offset>
+          <offset>1</offset>
         </value>
       </li>
     </stats>
@@ -4534,12 +4510,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.25</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-15</offset>
         </value>
       </li>
     </stats>
@@ -5407,7 +5377,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>25</offset>
+          <offset>2</offset>
         </value>
       </li>
     </stats>
@@ -5475,12 +5445,6 @@
         <key>PsychicSensitivity</key>
         <value>
           <offset>0.33</offset>
-        </value>
-      </li>
-      <li>
-        <key>PawnBeauty</key>
-        <value>
-          <offset>-20</offset>
         </value>
       </li>
     </stats>
@@ -5625,7 +5589,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>-7</offset>
+          <offset>2</offset>
         </value>
       </li>
     </stats>
@@ -5721,7 +5685,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>25</offset>
+          <offset>2</offset>
         </value>
       </li>
     </stats>
@@ -5817,7 +5781,7 @@
       <li>
         <key>PawnBeauty</key>
         <value>
-          <offset>35</offset>
+          <offset>2</offset>
         </value>
       </li>
     </stats>
