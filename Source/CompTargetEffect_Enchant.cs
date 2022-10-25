@@ -22,8 +22,10 @@ namespace Infused
                 infused = amplifier.TryGetComp<CompInfused>();
                 infused.SetInfusions(list);
                 amplifier.HitPoints = amplifier.MaxHitPoints;
-                GenSpawn.Spawn(amplifier, parent.Position, parent.Map);
-
+                if (!GenPlace.TryPlaceThing(amplifier, parent.Position, parent.Map, ThingPlaceMode.Near))
+                {
+                    Log.Error($"Could not drop new amplifier near {parent.Position}");
+                }
             }
             else
             {

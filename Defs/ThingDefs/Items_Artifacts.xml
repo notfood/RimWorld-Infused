@@ -1,10 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
 
+  <ThingDef ParentName="ResourceBaseInfused" Name="ArtifactBaseInfused" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <techLevel>Archotech</techLevel>
+    <thingCategories>
+      <li>Artifacts</li>
+    </thingCategories>
+    <tradeTags>
+      <li>Artifact</li>
+    </tradeTags>
+    <thingSetMakerTags><li>RewardStandardMidFreq</li></thingSetMakerTags>
+    <statBases>
+      <Mass>0.5</Mass>
+    </statBases>
+    <inspectorTabs>
+      <li>Infused.ITab_Infused</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="CompProperties_Usable">
+        <useJob>UseArtifact</useJob>
+        <useLabel>Activate</useLabel>
+      </li>
+      <li Class="CompProperties_UseEffectDestroySelf"/>
+    </comps>
+  </ThingDef>
+
   <ThingDef ParentName="ArtifactBaseInfused">
     <defName>InfusedAmplifier</defName>
     <label>infusion amplifier</label>
-    <description>A one-use infusion effector. Enchants the given item with an infusion. If empty, it can take random infusions from the item.</description>
+    <description>A one-use infusion effector. Enchants the given item with an infusion.</description>
     <graphicData>
       <texPath>Things/Item/Artifact/InfusedAmplifier</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -20,8 +45,12 @@
     <comps>
       <li Class="CompProperties_Targetable">
         <compClass>Infused.CompTargetable_WeaponOrApparel</compClass>
-        <moteOnTarget>Mote_PsycastPsychicEffect</moteOnTarget>
-        <moteConnecting>Mote_PsycastPsychicLine</moteConnecting>
+      </li>
+      <li Class="CompProperties_TargetEffect_FleckOnTarget">
+        <fleckDef>PsycastPsychicEffect</fleckDef>
+      </li>
+      <li Class="CompProperties_TargetEffect_FleckConnecting">
+        <fleckDef>PsycastPsychicLine</fleckDef>
       </li>
       <li Class="CompProperties_UseEffectArtifact">
         <sound>PsychicSoothePulserCast</sound>
@@ -31,6 +60,39 @@
       </li>
       <li Class="Infused.CompProperties_Enchant">
         <quality>Legendary</quality>
+        <count>
+          <min>1</min>
+          <max>2</max>
+        </count>
+      </li>
+    </comps>
+  </ThingDef>
+  
+  <ThingDef ParentName="ArtifactBaseInfused">
+    <defName>InfusedAmplifierEmpty</defName>
+    <label>infusion amplifier (empty)</label>
+    <description>A one-use infusion effector. It can take random infusions from items.</description>
+    <graphicData>
+      <texPath>Things/Item/Artifact/InfusedAmplifier</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <stackLimit>75</stackLimit>
+    <tradeNeverStack>false</tradeNeverStack>
+    <useHitPoints>true</useHitPoints>
+    <statBases>
+      <MarketValue>450</MarketValue>
+      <MaxHitPoints>80</MaxHitPoints>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Targetable">
+        <compClass>Infused.CompTargetable_WeaponOrApparel</compClass>
+      </li>
+      <li Class="CompProperties_UseEffectArtifact">
+        <sound>PsychicSoothePulserCast</sound>
+      </li>
+      <li>
+        <compClass>Infused.CompTargetEffect_Enchant</compClass>
       </li>
     </comps>
   </ThingDef>

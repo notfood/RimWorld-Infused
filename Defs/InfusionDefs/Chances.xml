@@ -13,7 +13,7 @@
       <li>0.1</li>
     </slots>
     <chances>
-      <legendary>0.8</legendary>
+      <legendary>1</legendary>
     </chances>
   </Infused.ChanceDef>
   

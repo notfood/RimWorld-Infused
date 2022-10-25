@@ -22,6 +22,13 @@
   <Infused.Legendary>Legendär</Infused.Legendary>
   <Infused.Artifact>Artefakt</Infused.Artifact>
   
+  <!-- Targetables -->
+  <Infused.Allows>Allows</Infused.Allows>
+  <Infused.Allows.Apparel>apparel</Infused.Allows.Apparel>
+  <Infused.Allows.Melee>melee weapons</Infused.Allows.Melee>
+  <Infused.Allows.Ranged>ranged weapons</Infused.Allows.Ranged>
+  <Infused.Allows.Furniture>furniture</Infused.Allows.Furniture>
+  
   <!-- Infused settings -->
   <Infused.Settings.Multiplier>Infusions Chance Multiplikator</Infused.Settings.Multiplier>
   <Infused.Settings.MultiplierDesc>mehr bedeutet auch mehr Durchtränkungen. (Vorgabe = 1.00)</Infused.Settings.MultiplierDesc>
@@ -31,6 +38,6 @@
   <Infused.Settings.MaxSlotsDesc>mehr bedeutet mehr $$$$$</Infused.Settings.MaxSlotsDesc>
   <Infused.Settings.TierCurve>Tierkurve</Infused.Settings.TierCurve>
   <Infused.Settings.TierCurveDesc>Würfe unter dem Wert werden zur Stufe</Infused.Settings.TierCurveDesc>
-  <Infused.Settings.Extra>More advanced settings can be configured through ChancesDef under [Infused Folder]/Defs/InfusionDefs/Chances.xml</Infused.Settings.Extra>
+  <Infused.Settings.Extra>Note. These chances are for Infused categories, not item qualities. Item quality chances and more advanced settings can be configured through ChancesDef under [Infused Folder]/Defs/InfusionDefs/Chances.xml</Infused.Settings.Extra>
   
 </LanguageData>

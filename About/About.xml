@@ -3,10 +3,17 @@
   <packageId>notfood.Infused</packageId>
   <name>Infused</name>
   <author>notfood</author>
-  <url>https://ludeon.com/forums/index.php?topic=21884.0</url>
+  <url>https://github.com/notfood/RimWorld-Infused</url>
   <supportedVersions>
-    <li>1.1</li>
-    <li>1.2</li>
+    <li>1.4</li>
   </supportedVersions>
   <description>Equipment enchantment</description>
+  <modDependencies>
+    <li>
+      <packageId>brrainz.harmony</packageId>
+      <displayName>Harmony</displayName>
+      <downloadUrl>https://github.com/pardeike/Harmony/releases/</downloadUrl>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+    </li>
+  </modDependencies>
 </ModMetaData>

@@ -100,7 +100,8 @@ namespace Infused
                 infusions = InfusedMod.Infuse(
                     parent,
                     infusedProps.quality,
-                    max:Settings.max,
+                    min: Math.Min(infusedProps.count.min, Settings.max),
+                    max: Math.Min(infusedProps.count.max, Settings.max),
                     skipThingFilter: true
                 ).ToList();
 
@@ -178,7 +179,7 @@ namespace Infused
 
         public override bool AllowStackWith(Thing other)
         {
-            return false;
+            return !IsActive;
         }
 
         public override void DrawGUIOverlay()

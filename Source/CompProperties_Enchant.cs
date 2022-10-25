@@ -7,6 +7,8 @@ namespace Infused
     {
         public QualityCategory quality;
 
+        public IntRange count;
+
         public CompProperties_Enchant()
         {
             compClass = typeof(CompInfused);

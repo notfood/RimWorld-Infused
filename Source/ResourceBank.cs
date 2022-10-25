@@ -11,7 +11,7 @@ namespace Infused
             const string PREFIX = "Infused.";
 
             static string TL(string s) => (PREFIX + s).Translate();
-            static string TL(string s, params object[] args) => (PREFIX + s).Translate(args);
+            static string TL(string s, params NamedArgument[] args) => TranslatorFormattedStringExtensions.Translate(PREFIX + s, args);
 
             public static readonly string Infused = "Infused".Translate();
             public static readonly string DescBonus = TL("DescBonus");
@@ -24,6 +24,12 @@ namespace Infused
             public static readonly string Epic = TL("Epic");
             public static readonly string Legendary = TL("Legendary");
             public static readonly string Artifact = TL("Artifact");
+
+            public static readonly string Allows = TL("Allows");
+            public static readonly string AllowsApparel = TL("Allows.Apparel");
+            public static readonly string AllowsMelee = TL("Allows.Melee");
+            public static readonly string AllowsRanged = TL("Allows.Ranged");
+            public static readonly string AllowsFurniture = TL("Allows.Furniture");
 
             public static readonly string SettingsMultiplier = TL("Settings.Multiplier");
             public static readonly string SettingsMultiplierDesc = TL("Settings.MultiplierDesc");

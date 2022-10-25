@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using RimWorld;
 using Verse;
 
@@ -102,15 +101,6 @@ namespace Infused
             }
         }
 
-        public override string TransformLabel(string label)
-        {
-            if (stealsInfusions)
-            {
-                return "Empty " + base.TransformLabel(label);
-            }
-            return base.TransformLabel(label);
-        }
-
         string cachedInspectStringExtra;
         public override string CompInspectStringExtra()
         {
@@ -131,26 +121,27 @@ namespace Infused
                     }
                 }
 
-                sb.Append("Allows: ");
+                sb.Append(ResourceBank.Strings.Allows);
+                sb.Append(": ");
                 if (allowance.apparel)
                 {
                     Comma();
-                    sb.Append("apparel");
+                    sb.Append(ResourceBank.Strings.AllowsApparel);
                 }
                 if (allowance.melee)
                 {
                     Comma();
-                    sb.Append("melee weapons");
+                    sb.Append(ResourceBank.Strings.AllowsMelee);
                 }
                 if (allowance.ranged)
                 {
                     Comma();
-                    sb.Append("ranged weapons");
+                    sb.Append(ResourceBank.Strings.AllowsRanged);
                 }
                 if (allowance.furniture)
                 {
                     Comma();
-                    sb.Append("furniture");
+                    sb.Append(ResourceBank.Strings.AllowsFurniture);
                 }
 
                 cachedInspectStringExtra = sb.ToString();
@@ -164,22 +155,23 @@ namespace Infused
             if (cachedDescriptionPart == null && !stealsInfusions)
             {
                 var sb = new System.Text.StringBuilder();
-                sb.AppendLine("Allows:");
+                sb.Append(ResourceBank.Strings.Allows);
+                sb.Append(":  ");
                 if (allowance.apparel)
                 {
-                    sb.AppendLine("  Apparel");
+                    sb.Append(ResourceBank.Strings.AllowsApparel.CapitalizeFirst());
                 }
                 if (allowance.melee)
                 {
-                    sb.AppendLine("  Melee Weapons");
+                    sb.Append(ResourceBank.Strings.AllowsMelee.CapitalizeFirst());
                 }
                 if (allowance.ranged)
                 {
-                    sb.AppendLine("  Ranged Weapons");
+                    sb.Append(ResourceBank.Strings.AllowsRanged.CapitalizeFirst());
                 }
                 if (allowance.furniture)
                 {
-                    sb.AppendLine("  Furniture");
+                    sb.Append(ResourceBank.Strings.AllowsFurniture.CapitalizeFirst());
                 }
 
                 cachedDescriptionPart = sb.ToString();
