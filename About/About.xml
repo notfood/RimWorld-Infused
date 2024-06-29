@@ -2,8 +2,8 @@
 <ModMetaData>
   <packageId>notfood.Infused</packageId>
   <name>Infused</name>
-  <author>notfood</author>
-  <url>https://github.com/notfood/RimWorld-Infused</url>
+  <author>notfood(1.4), chill0r(1.5)</author>
+  <url>https://github.com/chill0r/RimWorld-Infused</url>
   <supportedVersions>
     <li>1.5</li>
   </supportedVersions>
