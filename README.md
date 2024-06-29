@@ -1,6 +1,9 @@
 # RimWorld-Infused
 
-[![Version](https://img.shields.io/badge/Rimworld-1.1-green.svg)](http://rimworldgame.com/)
+## Updated for RimWorld 1.5
+** Original mod by [notfood](https://github.com/notfood/RimWorld-Infused)
+
+[![Version](https://img.shields.io/badge/Rimworld-1.4-green.svg)](http://rimworldgame.com/) [![Version](https://img.shields.io/badge/Rimworld-1.5-green.svg)](http://rimworldgame.com/)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 A unique way to make unique items for your special colonists: Randomly enchants equipment.
