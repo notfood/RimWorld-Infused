@@ -14,9 +14,10 @@ namespace Infused
 
             CompInfused infused = target.TryGetComp<CompInfused>();
 
-            var toTranfer = parent.GetComp<CompInfused>().Infusions.ToList();
+            var toTranfer = parent.TryGetComp<CompInfused>()?.Infusions.ToList();
             if (toTranfer.NullOrEmpty())
             {
+                // parent is an empty amplifier; transfer one random infusion from the target to this amplifier
                 List<Def> list = infused.RemoveRandom(Rand.Range(1, Settings.max));
                 Thing amplifier = ThingMaker.MakeThing(ResourceBank.Things.InfusedAmplifier);
                 infused = amplifier.TryGetComp<CompInfused>();
@@ -29,6 +30,7 @@ namespace Infused
             }
             else
             {
+                // transfer infusions from an amplifier into the target
                 foreach (Def infusion in toTranfer)
                 {
                     infused.Attach(infusion);
